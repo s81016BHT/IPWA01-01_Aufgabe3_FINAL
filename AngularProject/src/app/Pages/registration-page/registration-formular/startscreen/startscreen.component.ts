@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-startscreen',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./startscreen.component.css']
 })
 export class StartscreenComponent {
+  @Output() register = new EventEmitter<void>();
+  @Output() search = new EventEmitter<void>();
 
+  startRegistration(){
+    this.register.emit();
+  }
+
+  searchRegistration(){
+    this.search.emit();
+  }
 }

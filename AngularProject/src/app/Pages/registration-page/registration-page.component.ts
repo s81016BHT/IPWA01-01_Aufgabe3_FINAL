@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationPageComponent implements OnInit {
 
+  public currentPage = 1;
+
   constructor() { }
 
   ngOnInit(): void {
