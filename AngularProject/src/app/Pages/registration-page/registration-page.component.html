@@ -4,14 +4,18 @@
     </ng-container>
 
     <ng-container *ngIf="currentPage == 2">
-        <app-location-selection (back)="previousPage()" [type]="'normal'"></app-location-selection>
+        <app-location-selection (back)="previousPage()" (selectionChange)="setSelection($event)" [type]="'normal'"></app-location-selection>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 3">
-        <app-location-selection (back)="previousPage()" [type]="'normal'"></app-location-selection>
+        <app-address-form (back)="previousPage()" (addressChange)="setAddress($event)"></app-address-form>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 4">
-        <app-location-selection (back)="previousPage()" [type]="'normal'"></app-location-selection>
+        <app-location-selection (back)="previousPage()" (selectionChange)="setSelection($event)" [type]="'error'"></app-location-selection>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage == 5">
+        <app-location-selection (back)="previousPage()" (selectionChange)="setSelection($event)" [type]="'error'"></app-location-selection>
     </ng-container>
 </section>

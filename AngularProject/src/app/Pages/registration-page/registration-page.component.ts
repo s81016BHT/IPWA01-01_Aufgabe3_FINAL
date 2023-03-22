@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Address, Registration } from './types';
 
 @Component({
   selector: 'app-registration-page',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class RegistrationPageComponent implements OnInit {
 
   currentPage = <number>1;
-  previousPages = <number[]>[]
+  previousPages = <number[]>[];
+
+  selection !: String
+  address !: Address
 
   constructor() { }
 
@@ -22,6 +26,20 @@ export class RegistrationPageComponent implements OnInit {
 
   previousPage(){
     this.currentPage = <number>this.previousPages.pop()
+  }
+
+  setSelection(selection : String){
+    this.selection = selection;
+
+    if(this.selection == "Übergabe an der Geschäftsstelle") this.nextPage(5)
+    else this.nextPage(5);
+  }
+
+  setAddress(address : Address){
+    if(address.name == "" || address.surname == "" || address.street == "" || address.number == "" || address.zipcode == "") this.address == null;
+    else this.address == address
+
+    this.nextPage(4);
   }
 
 }
