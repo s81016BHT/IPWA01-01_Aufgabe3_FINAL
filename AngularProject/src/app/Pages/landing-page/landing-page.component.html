@@ -1,9 +1,9 @@
-<section class="h-[60vh] flex flex-col relative overflow-hidden w-full bg-black">
-    <img src="./assets/images/clothes-crisis.png" alt="Background image child" class="w-full h-full object-cover">
-    <div class="absolute w-full h-full bg-black pl-5 pr-5 md:pl-20 md:pr-20 sm:pl-10 sm:pr-10 flex items-center top-0 black-alpha">
-        <div class="w-100 md:w-3/4 lg:w-1/2">
-            <h1 class="text-4xl w-full text-white font-bold sm:text-5xl whitespace-pre-wrap">{{ texts.header_title}}</h1>
-            <p class="text-white w-full mt-5 text-xl">{{ texts.header_text }}</p>
+<section class="h-[60vh] flex flex-col relative overflow-hidden bg-black">
+    <img src="./assets/images/clothes-crisis.png" alt="Marketplace" class="w-full h-full object-cover">
+    <div class="absolute top-0 flex items-center w-full h-full pl-5 pr-5 md:pl-20 md:pr-20 sm:pl-10 sm:pr-10 black-alpha">
+        <div class="md:w-3/4 lg:w-1/2">
+            <h1 class="text-4xl text-white font-bold sm:text-5xl whitespace-pre-wrap">{{ texts.header_title}}</h1>
+            <p class="text-white mt-5 text-xl">{{ texts.header_text }}</p>
             <div class="flex flex-col mt-5 w-full gap-2 sm:flex-row">
                 <button [routerLink]="['/anmeldung']" class="flex-1 button-brown text-white text-xl font-bold p-3 rounded-lg">{{ texts.button_donate}}</button>
                 <button class="flex-1 button-red text-white text-xl font-bold p-3 rounded-lg">{{ texts.button_more}}</button>
@@ -16,7 +16,7 @@
     <div class="flex flex-col lg:flex-row lg:items-center">
         <div class="relative aspect-[16/9] bg-black lg:mr-5 lg:flex-1">
             <img src="./assets/images/turkey_earthquake.png" alt="Bangladesch" class="w-full h-full object-cover">
-            <div class="w-full h-full absolute top-0 bg-black black-alpha"></div>
+            <div class="w-full h-full absolute top-0 black-alpha"></div>
         </div>
         <div class="mt-5 lg:mt-0 lg:ml-5 lg:flex-1">
             <h1 class="text-3xl text-white mb-5 sm:text-4xl">{{ texts.imagebox1_title }}</h1>
@@ -31,42 +31,34 @@
             <h1 class="text-3xl text-white mb-5 sm:text-4xl">{{ texts.imagebox2_title }}</h1>
             <p class="text-white text-xl">{{ texts.imagebox2_text }}</p>
         </div>
-        <div class="relative aspect-[16/9] bg-black lg:ml-5 lg:flex-1">
+        <div class="relative aspect-[16/9] mt-5 lg:mt-0 lg:ml-5 lg:flex-1 bg-black">
             <img src="./assets/images/indian_slums.png" alt="Bangladesch" class="w-full h-full object-cover">
-            <div class="w-full h-full absolute top-0 bg-black black-alpha"></div>
+            <div class="w-full h-full absolute top-0 black-alpha"></div>
         </div>
     </div>
 </section>
 
-<section class="w-full flex items-center p-5 flex-col lg:flex-row md:pl-20 md:pr-20 sm:pl-10 sm:pr-10">
+<section class="flex items-center p-5 flex-col lg:flex-row md:pl-20 md:pr-20 sm:pl-10 sm:pr-10">
     <div class="w-full flex-1 bg-black aspect-[16/9] lg:mr-5">
-        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/N-q2sZhB6eM"
-            title="YouTube video player" frameborder="0" allow="picture-in-picture" allowfullscreen></iframe>
+        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/N-q2sZhB6eM" title="YouTube video player" frameborder="0" allow="picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="flex-1 mt-5 lg:ml-5">
         <p class="mb-10 whitespace-pre-wrap text-xl">{{ texts.videobox_text }}</p>
-        <button [routerLink]="['/anmeldung']"
-            class="w-full bg-navigation text-white text-xl font-bold p-5 rotate-1 rounded-lg">{{ texts.button_donate
-            }}</button>
+        <button [routerLink]="['/anmeldung']" class="w-full bg-navigation text-white text-xl font-bold p-5 rotate-1 rounded-lg">{{ texts.button_donate}}</button>
     </div>
 </section>
 
-<section class="w-full p-5 md:pl-20 md:pr-20 sm:pl-10 sm:pr-10 bg-red">
+<section class="p-5 md:pl-20 md:pr-20 sm:pl-10 sm:pr-10 bg-red">
     <div class="flex flex-col md:flex-row items-center justify-center md:mb-10">
-        <app-circular-loading class="w-40 mb-5 md:mr-5 md:mb-0" [percentige]="texts.stats_percentage1"
-            [color]="'#D34B5C'"></app-circular-loading>
-        <p class=" w-full text-white text-xl ml-0 mb-10 md:ml-5 md:w-1/2 md:mb-0">{{ texts.stats_percentage1_text }}
-        </p>
+        <app-circular-loading class="w-40 mb-5 md:mr-5 md:mb-0" [percentige]="texts.stats_percentage1" [color]="'#D34B5C'"></app-circular-loading>
+        <p class="text-white text-xl ml-0 mb-10 md:ml-5 md:w-1/2 md:mb-0">{{ texts.stats_percentage1_text }}</p>
     </div>
     <div class="flex flex-col md:flex-row items-center justify-center md:mb-10">
-        <app-circular-loading class="w-40 mb-5 md:mr-5 md:mb-0" [percentige]="texts.stats_percentage2"
-            [color]="'#78D793'"></app-circular-loading>
-        <p class=" w-full text-white text-xl ml-0 mb-10 md:ml-5 md:w-1/2 md:mb-0">{{ texts.stats_percentage2_text }}
-        </p>
+        <app-circular-loading class="w-40 mb-5 md:mr-5 md:mb-0" [percentige]="texts.stats_percentage2" [color]="'#78D793'"></app-circular-loading>
+        <p class="text-white text-xl ml-0 mb-10 md:ml-5 md:w-1/2 md:mb-0">{{ texts.stats_percentage2_text }}</p>
     </div>
     <div class="flex flex-col md:flex-row items-center justify-center">
-        <app-circular-loading class="w-40 mb-5 md:mr-5 md:mb-0" [percentige]="texts.stats_percentage3"
-            [color]="'#7AB5EB'"></app-circular-loading>
-        <p class=" w-full text-white text-xl ml-0 md:ml-5 md:w-1/2">{{ texts.stats_percentage3_text }}</p>
+        <app-circular-loading class="w-40 mb-5 md:mr-5 md:mb-0" [percentige]="texts.stats_percentage3" [color]="'#7AB5EB'"></app-circular-loading>
+        <p class="text-white text-xl ml-0 md:ml-5 md:w-1/2">{{ texts.stats_percentage3_text }}</p>
     </div>
 </section>
