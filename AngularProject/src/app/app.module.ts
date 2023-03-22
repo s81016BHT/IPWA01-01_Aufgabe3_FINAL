@@ -11,6 +11,13 @@ import { RegistrationPageComponent } from './Pages/registration-page/registratio
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { CircularLoadingComponent } from './Components/circular-loading/circular-loading.component';
+import { StartscreenComponent } from './Pages/registration-page/registration-formular/startscreen/startscreen.component';
+import { LocationSelectionComponent } from './Pages/registration-page/registration-formular/location-selection/location-selection.component';
+import { AddressFormComponent } from './Pages/registration-page/registration-formular/address-form/address-form.component';
+import { ClothingSelectionComponent } from './Pages/registration-page/registration-formular/clothing-selection/clothing-selection.component';
+import { AreaSelectionComponent } from './Pages/registration-page/registration-formular/area-selection/area-selection.component';
+import { RegistrationOverviewComponent } from './Pages/registration-page/registration-formular/registration-overview/registration-overview.component';
+import { RegistrationSearchComponent } from './Pages/registration-page/registration-formular/registration-search/registration-search.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +29,13 @@ import { CircularLoadingComponent } from './Components/circular-loading/circular
     HeaderComponent,
     FooterComponent,
     CircularLoadingComponent,
+    StartscreenComponent,
+    LocationSelectionComponent,
+    AddressFormComponent,
+    ClothingSelectionComponent,
+    AreaSelectionComponent,
+    RegistrationOverviewComponent,
+    RegistrationSearchComponent,
   ],
   imports: [
     BrowserModule,
