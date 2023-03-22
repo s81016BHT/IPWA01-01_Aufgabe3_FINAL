@@ -13,3 +13,8 @@ export interface Registration{
     clothes: String[],
     areas: String[]
 }
+
+export interface CheckListItem{
+    title: String,
+    active: boolean
+}

@@ -16,11 +16,11 @@
     </ng-container>
 
     <ng-container *ngIf="currentPage == 5">
-        <app-clothing-selection (back)="previousPage()" (clothesChange)="setClothes($event)" ></app-clothing-selection>
+        <app-clothing-selection (back)="previousPage()" (clothesChange)="setClothes($event)" [clothesList]="clothesList"></app-clothing-selection>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 6">
-        <app-area-selection (back)="previousPage()" (areasChange)="setArea($event)"></app-area-selection>
+        <app-area-selection (back)="previousPage()" (areasChange)="setArea($event)" [areasList]="areasList"></app-area-selection>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 7">

@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { faArrowLeft, faShirt } from '@fortawesome/free-solid-svg-icons';
+import { CheckListItem } from '../../types';
 
 @Component({
   selector: 'app-clothing-selection',
@@ -11,7 +12,7 @@ export class ClothingSelectionComponent {
   @Output() back = new EventEmitter<void>()
   @Output() clothesChange = new EventEmitter<any>();
 
-  clothes = [{title: "Shirt", active: false}];
+  @Input("clothesList") clothes = <CheckListItem[]>[];
 
   icons = {
     shirt: faShirt,

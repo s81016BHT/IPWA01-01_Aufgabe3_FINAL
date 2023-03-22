@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter} from '@angular/core';
+import { Component,Input , Output, EventEmitter} from '@angular/core';
 import { faArrowLeft, faEarthEurope } from '@fortawesome/free-solid-svg-icons';
+import { CheckListItem } from '../../types';
 
 @Component({
   selector: 'app-area-selection',
@@ -9,9 +10,9 @@ import { faArrowLeft, faEarthEurope } from '@fortawesome/free-solid-svg-icons';
 export class AreaSelectionComponent {
   
   @Output() back = new EventEmitter<void>()
-  @Output() areasChange = new EventEmitter<any>();
+  @Output() areasChange = new EventEmitter<String[]>();
 
-  areas = [{title: "Malu", active: false}];
+  @Input("areasList") areas = <CheckListItem[]>[];
 
   icons = {
     globe: faEarthEurope,

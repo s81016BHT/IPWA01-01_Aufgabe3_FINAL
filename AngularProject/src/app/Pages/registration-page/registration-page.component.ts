@@ -34,10 +34,10 @@ export class RegistrationPageComponent implements OnInit {
       else this.nextPage(4);
     });
 
-    this.socket.listen("getClothes").subscribe((data: any) => this.clothes = data);
+    this.socket.listen("getClothes").subscribe((data: any) => this.clothesList = data);
     this.socket.emit("getClothes", null);
 
-    this.socket.listen("getAreas").subscribe((data: any) => this.areas = data);
+    this.socket.listen("getAreas").subscribe((data: any) => this.areasList = data);
     this.socket.emit("getAreas", null);
   }
 
