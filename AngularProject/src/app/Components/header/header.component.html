@@ -1,1 +1,23 @@
-<p>header works!</p>
+<header class="sticky top-0 z-10 w-full">
+    <nav class="pl-5 pr-5 w-full flex justify-between items-center bg-navigation text-white text-xl">
+        <a class="flex items-center gap-2 font-bold" [routerLink]="['/']">
+            <img src="assets/logo/logo.png" class="h-16" alt="logo">
+            <span>HelpThemAll</span>
+        </a>
+        <button class="block text-3xl sm:hidden" (click)="toggleNav()">
+            <fa-icon [icon]="navstate ? open : closed"></fa-icon>
+        </button>
+        <ul class="w-full h-0 flex flex-col justify-center items-center gap-2 absolute top-[6rem] left-0 overflow-hidden text-2xl bg-navigation sm:top-0 sm:flex-row sm:relative sm:w-auto sm:h-auto sm:text-xl" [class.navopen]="navstate">
+            <ng-container *ngFor="let route of routes">
+                <li *ngIf="route.state ; else unchecked">
+                    <a (click)="closeNav()" class="font-bold" [routerLink]="[route.path]" href="#">{{ route.name }}</a>
+                </li>
+                <ng-template #unchecked>
+                    <li>
+                        <a (click)="closeNav()" class="text-gray" [routerLink]="[route.path]" href="#">{{ route.name}}</a>
+                    </li>
+                </ng-template>
+            </ng-container>
+        </ul>
+    </nav>
+</header>

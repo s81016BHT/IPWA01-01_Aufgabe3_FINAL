@@ -1,0 +1,8 @@
+nav{
+    height: 6rem;
+}
+
+.navopen{
+    height: calc(100vh - 6rem) !important;
+    transition: 0.2s;
+}

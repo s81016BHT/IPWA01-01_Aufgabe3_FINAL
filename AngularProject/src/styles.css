@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: caladea-regular;
+    src: url("assets/fonts/Caladea-Regular.ttf");
+}
+
+.bg-navigation{
+    background-color: #302222;
+}
+
+.button-red{
+    background-color: #612828;
+}
+
+.button-brown{
+    background-color: #392828;
+}
+
+.bg-red{
+    background-color: #723737;
+}
+
+.bg-brown{
+    background-color: #392828;
+}
+
+.black-alpha{
+    background-color: rgba(0,0,0,0.5);
+}
