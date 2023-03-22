@@ -5,7 +5,8 @@ import { SocketService } from 'src/app/socket-service';
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
-  styleUrls: ['./registration-page.component.css']
+  styleUrls: ['./registration-page.component.css'],
+  providers: [SocketService]
 })
 export class RegistrationPageComponent implements OnInit {
 
