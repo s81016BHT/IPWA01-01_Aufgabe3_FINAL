@@ -1,0 +1,17 @@
+.path-50-left{
+    margin-top: -1px;
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 calc(100% - 70px));
+}
+
+.path-50-right{
+    margin-top: -71px;
+    clip-path: polygon(0 0, 100% 70px, 100% 100%, 0 100%);
+}
+
+.path-50-left > div{
+    padding-bottom: 60px;
+}
+
+.path-50-right > div{
+    padding-top: 60px;
+}
