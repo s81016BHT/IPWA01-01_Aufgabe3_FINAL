@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { texts } from './pagetexts';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class LandingPageComponent implements OnInit {
 
   constructor() { }
+
+  public texts = texts
 
   ngOnInit(): void {
   }
