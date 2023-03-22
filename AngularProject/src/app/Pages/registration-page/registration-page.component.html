@@ -1,5 +1,17 @@
 <section class="relative fullview">
     <ng-container *ngIf="currentPage == 1">
-        <app-startscreen></app-startscreen>
+        <app-startscreen (register)="nextPage(2)" (search)="nextPage(1)"></app-startscreen>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage == 2">
+        <app-location-selection (back)="previousPage()" [type]="'normal'"></app-location-selection>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage == 3">
+        <app-location-selection (back)="previousPage()" [type]="'normal'"></app-location-selection>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage == 4">
+        <app-location-selection (back)="previousPage()" [type]="'normal'"></app-location-selection>
     </ng-container>
 </section>

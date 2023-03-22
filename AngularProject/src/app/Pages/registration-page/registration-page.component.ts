@@ -7,11 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationPageComponent implements OnInit {
 
-  public currentPage = 1;
+  currentPage = <number>1;
+  previousPages = <number[]>[]
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  nextPage(page : number){
+    this.previousPages.push(this.currentPage);
+    this.currentPage = page;
+  }
+
+  previousPage(){
+    this.currentPage = <number>this.previousPages.pop()
   }
 
 }
