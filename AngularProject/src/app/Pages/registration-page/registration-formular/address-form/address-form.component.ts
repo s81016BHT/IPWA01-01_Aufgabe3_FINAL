@@ -23,7 +23,7 @@ export class AddressFormComponent {
     backicon: faArrowLeft
   }
 
-  address !: Address;
+  address = <Address | null>null;
 
   pageBack(){
     this.back.emit();
@@ -39,7 +39,8 @@ export class AddressFormComponent {
       location: this.locationref.nativeElement.value
     }
 
-    this.addressChange.emit(this.address);
+    if(this.address.name != "" && this.address.surname != "" && this.address.street != "" && this.address.number != "" && this.address.zipcode != "") 
+      this.addressChange.emit(this.address);
   }
 
 }

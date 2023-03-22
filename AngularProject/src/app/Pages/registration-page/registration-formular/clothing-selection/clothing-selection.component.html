@@ -1,1 +1,30 @@
-<p>clothing-selection works!</p>
+<img src="./assets/images/gallery/asia.png" alt="Background image child" class="w-full h-full object-cover">
+<div class="absolute w-full h-full bg-black flex flex-col top-0 p-5 md:px-28 lg:px-64 justify-center black-alpha">
+    <button class="text-3xl text-left text-white mb-5" (click)="pageBack()"><fa-icon [icon]="icons.backicon"></fa-icon></button>
+    <div class="flex bg-red rounded-lg gap-3 p-5">
+        <div class="flex-1 flex flex-col">
+            <div class="text-center text-white col-span-2 sm:hidden">
+                <fa-icon class="text-4xl mb-3 md:text-6xl" [icon]="icons.shirt"></fa-icon>
+                <h1 class="text-2xl font-bold mb-5">Kleidung auswählen</h1>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mb-3 sm:mb-0 overflow-auto max-h-60 sm:max-h-96">
+                <button (click)="updateClothSelection(index)" class="w-full h-20 button-brown text-white font-bold"
+                    [class.opacity-60]="!btn.active" *ngFor="let btn of clothes;let index=index;">
+                    {{ btn.title }}
+                </button>
+            </div>
+            <div class="text-center text-white col-span-2 sm:hidden">
+                <button class="button-red w-full font-bold p-5 rounded-lg"
+                    (click)="setClothSelection()">Fortfahren</button>
+            </div>
+        </div>
+        <div class="flex-1 flex-col justify-center items-center text-center text-white hidden sm:flex">
+            <fa-icon class="text-6xl mb-3" [icon]="icons.shirt"></fa-icon>
+            <h1 class="text-2xl font-bold mb-5">Kleidung auswählen</h1>
+            <p class="sm:text-xl mb-5">
+                Sehr gut! Bitte markiere Nachfolgend um welche Kleidung es sich bei deiner Spende handelt.
+            </p>
+            <button class="button-red w-full font-bold p-5 rounded-lg" (click)="setClothSelection()">Fortfahren</button>
+        </div>
+    </div>
+</div>

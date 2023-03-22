@@ -11,8 +11,10 @@ export class RegistrationPageComponent implements OnInit {
   currentPage = <number>1;
   previousPages = <number[]>[];
 
-  selection !: String
-  address !: Address
+  type = <String | null>null;
+  address = <Address | null>null;
+  clothes = <String[] | null>null;
+  areas = <String[] | null>null;
 
   constructor() { }
 
@@ -28,18 +30,39 @@ export class RegistrationPageComponent implements OnInit {
     this.currentPage = <number>this.previousPages.pop()
   }
 
-  setSelection(selection : String){
-    this.selection = selection;
+  setType(selection : String){
+    this.type = selection;
 
-    if(this.selection == "Übergabe an der Geschäftsstelle") this.nextPage(5)
-    else this.nextPage(5);
+    if(this.type == "Übergabe an der Geschäftsstelle"){
+      this.address = null;
+      this.nextPage(5)
+    }
+    else this.nextPage(3);
   }
 
   setAddress(address : Address){
-    if(address.name == "" || address.surname == "" || address.street == "" || address.number == "" || address.zipcode == "") this.address == null;
-    else this.address == address
+    this.address = address
 
-    this.nextPage(4);
+    // check zipcode! this.nextPage(4)
+    this.nextPage(5);
+  }
+
+  setClothes(clothes : String[]){
+    this.clothes = clothes
+
+    this.nextPage(6);
+  }
+
+  setArea(areas : String[]){
+    this.areas = areas
+    this.finishRegistration();
+  }
+
+  finishRegistration(){
+    console.log(this.type,this.address,this.clothes,this.areas)
+
+    // Send registration to Server!
+
   }
 
 }

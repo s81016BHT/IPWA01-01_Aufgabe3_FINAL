@@ -4,7 +4,7 @@
     </ng-container>
 
     <ng-container *ngIf="currentPage == 2">
-        <app-location-selection (back)="previousPage()" (selectionChange)="setSelection($event)" [type]="'normal'"></app-location-selection>
+        <app-location-selection (back)="previousPage()" (selectionChange)="setType($event)" [type]="'normal'"></app-location-selection>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 3">
@@ -12,10 +12,18 @@
     </ng-container>
 
     <ng-container *ngIf="currentPage == 4">
-        <app-location-selection (back)="previousPage()" (selectionChange)="setSelection($event)" [type]="'error'"></app-location-selection>
+        <app-location-selection (back)="previousPage()" (selectionChange)="setType($event)" [type]="'error'"></app-location-selection>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 5">
-        <app-location-selection (back)="previousPage()" (selectionChange)="setSelection($event)" [type]="'error'"></app-location-selection>
+        <app-clothing-selection (back)="previousPage()" (clothesChange)="setClothes($event)" ></app-clothing-selection>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage == 6">
+        <app-area-selection (back)="previousPage()" (areasChange)="setArea($event)"></app-area-selection>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage == 7">
+        <app-clothing-selection (back)="previousPage()" (clothesChange)="setClothes($event)" ></app-clothing-selection>
     </ng-container>
 </section>
