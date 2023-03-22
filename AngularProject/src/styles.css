@@ -36,3 +36,21 @@ html,body{
 .black-alpha{
     background-color: rgba(0,0,0,0.5);
 }
+
+@media (pointer:fine) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #bd5151;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #924545;
+    }
+    ::-webkit-scrollbar-thumb:active {
+        background: #924545;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #302222;
+    }
+}
