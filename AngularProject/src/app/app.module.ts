@@ -10,6 +10,7 @@ import { PrivacyPageComponent } from './Pages/privacy-page/privacy-page.componen
 import { RegistrationPageComponent } from './Pages/registration-page/registration-page.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { CircularLoadingComponent } from './Components/circular-loading/circular-loading.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FooterComponent } from './Components/footer/footer.component';
     RegistrationPageComponent,
     HeaderComponent,
     FooterComponent,
+    CircularLoadingComponent,
   ],
   imports: [
     BrowserModule,
