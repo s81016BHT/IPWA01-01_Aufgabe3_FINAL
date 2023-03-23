@@ -18,21 +18,20 @@ function registrationEvents(io) {
         /* Socket event to get the available clothing types */
         socket.on("getClothes",() => {
             dbhandler.getAllClothes().then((data) => {
-                socket.emit("getClothes",data); // Returns List of all Clothes
+                socket.emit("getClothes",data); // Returns a list of all Clothes
             });
         });
 
         /* Socket event to get the available areas */
         socket.on("getAreas",() => {
             dbhandler.getAllAreas().then((data) => {
-                socket.emit("getAreas",data); // Returns list of all Areas
+                socket.emit("getAreas",data); // Returns a list of all Areas
             });
         });
 
         /* Socket event to validate a specified clothes pick-up address  */
         socket.on("addressValidation",(data) => {
-            if (typeof data !== 'object') 
-                return;
+            if (typeof data !== 'object') return;
             if (!data.hasOwnProperty("name") && !data.hasOwnProperty("surname") && !data.hasOwnProperty("street") && !data.hasOwnProperty("number") && !data.hasOwnProperty("zipcode") && !data.hasOwnProperty("location")) 
                 return;
 
@@ -66,7 +65,7 @@ function registrationEvents(io) {
         });
 
     });
-    
+
 }
 
 module.exports.registrationEvents = registrationEvents

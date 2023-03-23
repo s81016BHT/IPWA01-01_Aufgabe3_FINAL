@@ -11,7 +11,10 @@ export interface Registration{
     type: String,
     address: Address | null,
     clothes: String[],
-    areas: String[]
+    areas: String[],
+    date ?: String,
+    time ?: String,
+    registrationId ?: String
 }
 
 export interface CheckListItem{

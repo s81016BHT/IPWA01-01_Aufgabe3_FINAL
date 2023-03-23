@@ -10,9 +10,11 @@ class DBRegistrationHandler extends DB{
 
             this.executeQuery(query).then((areas) => {
                 let areaList = []            
+                
                 areas.forEach(area => {
-                    areaList.push({title: area.name, active: false})
+                    areaList.push({title: area.AREANAME, active: false})
                 });
+
                 resolve(areaList);
             }).catch((err) => {
                 console.log("Error during execution of getAreas()!");
@@ -23,14 +25,16 @@ class DBRegistrationHandler extends DB{
 
     /* Method to get all clothing types from Database */
     getAllClothes(){
-        let query = "SELECT * FROM Clothes;";
-
         return new Promise((resolve) => {
+            let query = "SELECT * FROM Clothes;";
+
             this.executeQuery(query).then((clothes) => {
                 let clothesList = []
-                clothes.forEach(cloth => {
-                    clothesList.push({title: cloth.name, active: false})
+
+                clothes.forEach(dress => {
+                    clothesList.push({title: dress.DRESSNAME, active: false})
                 });
+
                 resolve(clothesList);
             }).catch((err) => {
                 console.log("Error during execution of getClothes()!");
@@ -38,6 +42,10 @@ class DBRegistrationHandler extends DB{
             });
         });
     }
+
+    /*-----------------------------------------------------------------------------------
+                                 Search existing registration
+    -------------------------------------------------------------------------------------*/
 
     /* Method to get clothes by registration_id */
     getRegistrationClothes(registration_id){
@@ -55,7 +63,7 @@ class DBRegistrationHandler extends DB{
 
                 resolve(clothArray);
             }).catch((err) => {
-                console.log("Error while getting clothes",err)
+                console.log("Error during execution of getRegistrationClothes()!",err)
                 resolve(null);
             });
         });
@@ -77,7 +85,7 @@ class DBRegistrationHandler extends DB{
 
                 resolve(areaArray);
             }).catch((err) => {
-                console.log("Error while getting areas",err)
+                console.log("Error during execution of getRegistrationAreas()",err)
                 resolve(null);
             });
         });
@@ -102,7 +110,7 @@ class DBRegistrationHandler extends DB{
 
                 resolve(addressobj);
             }).catch((err) => {
-                console.log("Error while getting address");
+                console.log("Error during execution of getRegistrationAddress()");
                 resolve(null);
             });
         });
@@ -143,54 +151,84 @@ class DBRegistrationHandler extends DB{
                 resolve(registrationobj);
                 
             }).catch((err) => {
-                console.log("Error while getting registration!",err);
+                console.log("Error during execution of getRegistration()",err);
                 resolve(null);
             });
         });
     }
 
-    /* Method of storing addres by registration_id */
-    storeAddress(address,registration_id){
-        return new Promise((resolve) => {
-            let query = `INSERT INTO Addresses(registrationID,name,surname,street,number,zipcode,location) 
-                         VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(address.name) },${ this.conpool.escape(address.surname) },${ this.conpool.escape(address.street) },${this.conpool.escape(address.number)},${this.conpool.escape(address.zipcode)},${this.conpool.escape(address.location)});`
+    /*-----------------------------------------------------------------------------------
+                                   Registration Storing
+    -------------------------------------------------------------------------------------*/
 
-            this.executeQuery(query).then((result) => {
-                resolve(result.insertId)
-            }).catch((err) => {
-                console.log("Error during execution of storeAddress()!",err);
-                resolve(null);
+    deleteRegistration(registration_id){
+        return new Promise((resolve) => {
+            let query = `DELETE FROM Registrations WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
+
+            this.executeQuery(query).catch((err) => {
+                console.log("Error during execution of deleteRegistration()!");
+                resolve(false);
             });
+            resolve(true);
+        });
+    }
+
+    /* Method of storing addres by registration_id */
+    storeAddress(type,address,registration_id){
+        return new Promise((resolve) => {
+            if(type == "Übergabe an der Geschäftsstelle") resolve(true);
+            if(address == null) resolve(false);
+
+            let query = `INSERT INTO Registration_Addresses(registrationID,name,surname,street,number,zipcode,location) 
+                         VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(address.name) },
+                                 ${ this.conpool.escape(address.surname) },${ this.conpool.escape(address.street) },
+                                 ${this.conpool.escape(address.number)},${this.conpool.escape(address.zipcode)},
+                                 ${this.conpool.escape(address.location)});`;
+
+            this.executeQuery(query).catch((err) => {
+                console.log("Error during execution of storeAddress()!",err);
+                resolve(false);
+            });
+
+            resolve(true);
         });
     }
 
     /* Method of storing selected clothes by registration ID */
     storeClothes(clothes,registration_id){
         return new Promise((resolve) => {
+            if(clothes == false) resolve(false);
+
             clothes.forEach(cloth => {
-                let query = `INSERT INTO Registrations_Clothes(registrationID,name) VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(cloth)})`
+                let query = `INSERT INTO Registrations_Clothes(registrationID,name) 
+                             VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(cloth)})`;
 
                 this.executeQuery(query).catch((err) => {
                     console.log("Error during execution of storeClothes()!",err);
-                    resolve(null)
+                    resolve(false);
                 });
             });
-            resolve();
+
+            resolve(true);
         });
     }
 
     /* Method of storing selected areas by registration ID */
     storeAreas(areas,registration_id){
         return new Promise((resolve) => {
+            if(areas == null) resolve(false);
+
             areas.forEach(area => {
-                let query = `INSERT INTO Registrations_Areas(registrationID,name) VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(area)})`
+                let query = `INSERT INTO Registrations_Areas(registrationID,name) 
+                             VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(area)})`;
 
                 this.executeQuery(query).catch((err) => {
                     console.log("Error during execution of storeAreas()!",err);
-                    resolve(null)
+                    resolve(false);
                 });
             });
-            resolve();
+
+            resolve(true);
         });
     }
 
@@ -199,22 +237,25 @@ class DBRegistrationHandler extends DB{
         return new Promise((resolve) => {
             let currentDateTime = moment();
 
-            let query = `INSERT INTO Registrations(registrationID,type,timestamp) VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(registration.type)},'${currentDateTime.format("YYYY-MM-DDTHH:mm:ss")}')`
+            let query = `INSERT INTO Registrations(registrationID,type,timestamp) 
+                         VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(registration.type)},
+                                 ${this.conpool.escape(currentDateTime.format("YYYY-MM-DDTHH:mm:ss"))})`
 
             registration["date"] = currentDateTime.format("DD.MM.YYYY");
             registration["time"] = currentDateTime.format("HH:mm:ss");
             registration["registrationId"] = registration_id
 
             this.executeQuery(query).then(async (result) => {
-                if(registration.address != null)
-                    if(await this.storeAddress(registration.address,registration_id) == null) resolve(null)
-
-                if(await this.storeClothes(registration.clothes,registration_id) == null) resolve(null);
-                if(await this.storeAreas(registration.areas,registration_id) == null) resolve(null)
+                if(!await this.storeAddress(registration.type,registration.address,registration_id)) 
+                    this.deleteRegistration(registration_id).then(resolve(null));
+                if(!await this.storeClothes(registration.clothes,registration_id)) 
+                    this.deleteRegistration(registration_id).then(resolve(null));
+                if(!await this.storeAreas(registration.areas,registration_id)) 
+                    this.deleteRegistration(registration_id).then(resolve(null));
 
                 resolve(registration);
             }).catch((err) => {
-                console.log("Error while storring Registration!",err)
+                console.log("Error during execution of storeRegistration()",err)
                 resolve(null);
             });
         });
