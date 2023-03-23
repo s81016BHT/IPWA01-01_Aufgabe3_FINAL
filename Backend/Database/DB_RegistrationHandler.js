@@ -1,8 +1,11 @@
 const { DB } = require("./DB")
 const moment = require("moment")
 
-class DBRegistrationHandler extends DB{
+function createRegistrationID(){
+    return new Date().getTime();
+}
 
+class DBRegistrationHandler extends DB{
     /* Method to get all Areas from Database */
     getAllAreas(){
         return new Promise((resolve) => {
@@ -224,9 +227,10 @@ class DBRegistrationHandler extends DB{
     }
 
     /* Method of storing registration type, date and time by registration ID */
-    storeRegistration(registration, registration_id){
+    storeRegistration(registration){
         return new Promise((resolve) => {
             let currentDateTime = moment();
+            let registration_id = createRegistrationID();
 
             let query = `INSERT INTO Registrations(registrationID,type,timestamp) 
                          VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(registration.type)},

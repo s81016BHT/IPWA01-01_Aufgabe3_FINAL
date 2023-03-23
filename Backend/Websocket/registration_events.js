@@ -47,7 +47,7 @@ function registrationEvents(io) {
             if(typeof data !== 'object') socket.emit("registration", null);
             if(!data.hasOwnProperty("type") && !data.hasOwnProperty("address") && !data.hasOwnProperty("clothes") && !data.hasOwnProperty("areas")) socket.emit("registration", null);
             
-            dbhandler.storeRegistration(data,socket.id).then((data) => {
+            dbhandler.storeRegistration(data).then((data) => {
                 socket.emit("registration", data); // Returns stored object or null value
             });
         });

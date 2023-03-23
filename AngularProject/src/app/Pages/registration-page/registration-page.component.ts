@@ -43,8 +43,10 @@ export class RegistrationPageComponent {
   }
 
   nextPage(page: number) {
-    this.previousPages.push(this.currentPage);
-    this.currentPage = page;
+    if(this.socket.connected){
+      this.previousPages.push(this.currentPage);
+      this.currentPage = page;
+    }
   }
 
   previousPage() {
@@ -63,7 +65,9 @@ export class RegistrationPageComponent {
 
   setAddress(address: Address) {
     this.address = address;
-    this.socket.emit("addressValidation", this.address)
+
+    if(this.socket.connected)
+      this.socket.emit("addressValidation", this.address)
   }
 
   setClothes(clothes: String[]) {
@@ -77,12 +81,13 @@ export class RegistrationPageComponent {
   }
 
   finishRegistration() {
-    if (this.type != null && this.clothes != null && this.areas != null)
+    if (this.socket.connected && this.type != null && this.clothes != null && this.areas != null)
       this.socket.emit("newRegistration",<Registration>{type: this.type,address: this.address,clothes: this.clothes,areas: this.areas});
   }
 
   getRegistration(registrationId : any){
-    this.socket.emit("getRegistration",registrationId);
+    if(this.socket.connected)
+      this.socket.emit("getRegistration",registrationId);
   }
 
 }

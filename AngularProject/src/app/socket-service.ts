@@ -7,9 +7,20 @@ import { Observable } from "rxjs";
 })
 export class SocketService {
   socket;
+  connected = false;
 
   constructor() {
     this.socket = io("wss://127.0.0.1");
+
+    this.socket.on("connect",() => {
+      console.log("Successfully connected to SocketServer!");
+      this.connected = true;
+    })
+
+    this.socket.on("disconnect",() => {
+      console.log("SocketServer connection loss...");
+      this.connected = false;
+    })
   }
   
   listen(event : string){
