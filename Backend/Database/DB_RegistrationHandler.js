@@ -53,8 +53,6 @@ class DBRegistrationHandler extends DB{
             let query = `SELECT * FROM Registrations_Clothes WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
             this.executeQuery(query).then((result) => {
-                if(result.length < 1) resolve(null);
-
                 let clothArray = [];
 
                 result.forEach((cloth) => {
@@ -63,7 +61,8 @@ class DBRegistrationHandler extends DB{
 
                 resolve(clothArray);
             }).catch((err) => {
-                console.log("Error during execution of getRegistrationClothes()!",err)
+                if(err.code != "ER_NO_SUCH_TABLE")
+                    console.log("Error during execution of getRegistrationClothes()!",err)
                 resolve(null);
             });
         });
@@ -75,8 +74,6 @@ class DBRegistrationHandler extends DB{
             let query = `SELECT * FROM Registrations_Areas WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
             this.executeQuery(query).then((result) => {
-                if(result.length < 1) resolve(null);
-
                 let areaArray = [];
 
                 result.forEach((area) => {
@@ -85,7 +82,8 @@ class DBRegistrationHandler extends DB{
 
                 resolve(areaArray);
             }).catch((err) => {
-                console.log("Error during execution of getRegistrationAreas()",err)
+                if(err.code != "ER_NO_SUCH_TABLE")
+                    console.log("Error during execution of getRegistrationAreas()",err)
                 resolve(null);
             });
         });
@@ -97,8 +95,6 @@ class DBRegistrationHandler extends DB{
             let query = `SELECT * FROM Addresses WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
             this.executeQuery(query).then((result) => {
-                if(result.length < 1) resolve(null);
-
                 let addressobj = {
                     name: result[0].name,
                     surname: result[0].surname,
@@ -110,7 +106,8 @@ class DBRegistrationHandler extends DB{
 
                 resolve(addressobj);
             }).catch((err) => {
-                console.log("Error during execution of getRegistrationAddress()");
+                if(err.code != "ER_NO_SUCH_TABLE")
+                    console.log("Error during execution of getRegistrationAddress()",err);
                 resolve(null);
             });
         });
@@ -122,34 +119,28 @@ class DBRegistrationHandler extends DB{
             let query = `SELECT * FROM Registrations WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
             this.executeQuery(query).then(async (result) => {
-                if (result.length < 1) {
+                if(result.length < 1){
                     resolve(null);
                     return;
                 }
 
-                let address = null;
-                let clothes = null;
-                let areas = null
-                let registrationobj = {};
-
                 let dateTime = moment(result[0].timestamp);
+
+                let address = await this.getRegistrationAddress(registration_id);
+                let clothes = await this.getRegistrationClothes(registration_id);
+                let areas = await this.getRegistrationAreas(registration_id);
+                
+                let registrationobj = {};
 
                 registrationobj["type"] = result[0].type;
                 registrationobj["date"] = dateTime.format("DD.MM.YYYY");
                 registrationobj["time"] = dateTime.format("HH:mm:ss")
-                registrationobj["registrationId"] = registration_id
-
-                clothes = await this.getRegistrationClothes(registration_id);
-                areas = await this.getRegistrationAreas(registration_id);
-
-                if(result[0].type == "Abholung") address = await this.getRegistrationAddress(registration_id);
-                    
+                registrationobj["registrationId"] = registration_id    
                 registrationobj["clothes"] = clothes;
                 registrationobj["areas"] = areas;
                 registrationobj["address"] = address;
 
                 resolve(registrationobj);
-                
             }).catch((err) => {
                 console.log("Error during execution of getRegistration()",err);
                 resolve(null);
