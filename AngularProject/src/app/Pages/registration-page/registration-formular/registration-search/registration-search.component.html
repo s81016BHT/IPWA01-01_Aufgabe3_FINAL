@@ -1,1 +1,12 @@
-<p>registration-search works!</p>
+<img src="./assets/images/gallery/tuvalu.png" alt="Background image child" class="w-full h-full object-cover">
+<div class="absolute w-full h-full bg-black flex flex-col top-0 p-5 md:px-28 lg:px-64 justify-center black-alpha">
+    <button class="text-3xl text-left text-white mb-5" (click)="pageBack()"><fa-icon [icon]="icons.backicon"></fa-icon></button>
+    <div class="flex flex-col bg-red rounded-lg gap-3 p-5 overflow-auto text-xl text-center text-white gap-3">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3">Du hast dich bereits registiert?</h1>
+        <p>Dann gib jetzt bitte nachfolgend deine Registrations ID ein, damit wir deine registierte Spende suchen können.</p>
+        <form class="flex flex-col gap-3 mt-5" (submit)="getRegistration()" onsubmit="return false">
+            <input class="text-center text-2xl font-bold" type="text" #registrationIdref>
+            <input type="submit" value="Spende suchen" class="button-red font-bold p-5 rounded-lg cursor-pointer">
+        </form>
+    </div>
+</div>

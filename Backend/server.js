@@ -3,6 +3,8 @@ const fs = require("fs");
 const https = require("https");
 const http = require("http");
 
+const { createWebsocketServer } = require("./Websocket/init_websocket");
+
 /* Setting up http SSL Options */
 
 const HTTPS_SSL = {
@@ -27,6 +29,8 @@ http.createServer((req, res) => {
 
 /* Creating the Websocket Server based on pre initialized https Server */
 
-https.createServer(HTTPS_SSL, app).listen(443, () => { // Creating the HTTPs Server with reference to express
-    console.log("HTTPS SERVER IS LISTENING!");
-});
+createWebsocketServer(
+    https.createServer(HTTPS_SSL, app).listen(443, () => { // Creating the HTTPs Server with reference to express
+        console.log("HTTPS SERVER IS LISTENING!");
+    })
+);

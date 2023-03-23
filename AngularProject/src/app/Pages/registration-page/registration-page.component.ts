@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Address, Registration } from './types';
 import { SocketService } from 'src/app/socket-service';
 
@@ -8,14 +8,13 @@ import { SocketService } from 'src/app/socket-service';
   styleUrls: ['./registration-page.component.css'],
   providers: [SocketService]
 })
-export class RegistrationPageComponent implements OnInit {
+export class RegistrationPageComponent {
 
   currentPage = <number>1;
   previousPages = <number[]>[];
 
   clothesList = [];
   areasList = [];
-
   registration = <Registration | null>null;
 
   type = <String | null>null;
@@ -25,13 +24,15 @@ export class RegistrationPageComponent implements OnInit {
 
   constructor(private socket: SocketService) {
     this.socket.listen("addressValidation").subscribe((data: any) => {
-      if (data) this.nextPage(5);
+      if (data.addressValid) this.nextPage(5);
       else this.nextPage(4);
     });
 
     this.socket.listen("registration").subscribe((data: any) => {
-      if (data != null) console.log(data);
-      else this.nextPage(4);
+      if(data != null){
+        this.registration = data;
+        this.nextPage(7);
+      }
     });
 
     this.socket.listen("getClothes").subscribe((data: any) => this.clothesList = data);
@@ -39,9 +40,6 @@ export class RegistrationPageComponent implements OnInit {
 
     this.socket.listen("getAreas").subscribe((data: any) => this.areasList = data);
     this.socket.emit("getAreas", null);
-  }
-
-  ngOnInit(): void {
   }
 
   nextPage(page: number) {
@@ -64,8 +62,7 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   setAddress(address: Address) {
-    this.address = address
-
+    this.address = address;
     this.socket.emit("addressValidation", this.address)
   }
 
@@ -81,16 +78,12 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   finishRegistration() {
-    if (this.type != null && this.address != null && this.clothes != null && this.areas != null)
-      this.socket.emit(
-        "newRegistration",
-        <Registration>{
-          type: this.type,
-          address: this.address,
-          clothes: this.clothes,
-          areas: this.areas
-        }
-      );
+    if (this.type != null && this.clothes != null && this.areas != null)
+      this.socket.emit("newRegistration",<Registration>{type: this.type,address: this.address,clothes: this.clothes,areas: this.areas});
+  }
+
+  getRegistration(registrationId : any){
+    this.socket.emit("getRegistration",registrationId);
   }
 
 }

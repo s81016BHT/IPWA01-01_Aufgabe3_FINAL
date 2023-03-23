@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registration-overview',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./registration-overview.component.css']
 })
 export class RegistrationOverviewComponent {
+  @Input("registrationData") registrationData : any
+  @Output() back = new EventEmitter<void>()
 
+  public icons = {
+    backicon: faArrowLeft
+  }
+
+  pageBack(){
+    this.back.emit();
+  }
 }
