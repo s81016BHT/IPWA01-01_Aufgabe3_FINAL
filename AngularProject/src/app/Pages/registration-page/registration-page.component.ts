@@ -68,7 +68,6 @@ export class RegistrationPageComponent {
 
   setClothes(clothes: String[]) {
     this.clothes = clothes
-
     this.nextPage(6);
   }
 

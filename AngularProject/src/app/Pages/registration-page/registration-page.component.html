@@ -8,7 +8,7 @@
     </ng-container>
 
     <ng-container *ngIf="currentPage == 3">
-        <app-address-form (back)="previousPage()" (addressChange)="setAddress($event)"></app-address-form>
+        <app-address-form (back)="previousPage()" [address]="address" (addressChange)="setAddress($event)"></app-address-form>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 4">

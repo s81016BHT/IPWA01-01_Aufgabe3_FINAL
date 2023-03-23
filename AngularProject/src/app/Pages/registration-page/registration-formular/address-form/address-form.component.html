@@ -2,7 +2,7 @@
 <div class="absolute w-full h-full bg-black flex flex-col top-0 p-5 md:px-28 lg:px-64 justify-center black-alpha">
     <button class="text-3xl text-left text-white mb-5" (click)="pageBack()"><fa-icon [icon]="icons.backicon"></fa-icon></button>
     <div class="flex bg-brown rounded-lg gap-3 p-5">
-        <form class="flex-1 flex flex-col gap-2 text-xl text-white" (submit)="setAddress()" onsubmit="return false">
+        <form class="flex-1 flex flex-col gap-2 text-xl text-white" #adressForm="ngForm" (ngSubmit)="setAddress(adressForm)" onsubmit="return false">
             <div class="text-center text-white col-span-2 sm:hidden">
                 <fa-icon class="text-4xl mb-3 md:text-6xl" [icon]="icons.truck"></fa-icon>
                 <h1 class="text-2xl font-bold mb-5">Abholung</h1>
@@ -10,31 +10,31 @@
             <div class="w-full flex gap-2">
                 <div class="flex-1 flex flex-col">
                     <label for="surname" class="w-full">Name*</label>
-                    <input type="text" id="surname" class="w-full" #surnameref>
+                    <input type="text" name="surname" class="w-full" #surnameref ngModel required>
                 </div>
                 <div class="flex-1 flex flex-col">
                     <label for="name" class="w-full">Vorname*</label>
-                    <input type="text" id="name" class="w-full" #nameref>
+                    <input type="text" name="name" class="w-full" #nameref ngModel required>
                 </div>
             </div>
             <div class="w-full flex gap-2">
                 <div class="basis-4/6 flex flex-col">
                     <label for="street" class="w-full">Straße*</label>
-                    <input type="text" id="street" class="w-full" #streetref>
+                    <input type="text" name="street" class="w-full" #streetref ngModel required minlength="4">
                 </div>
                 <div class="flex-1 flex flex-col">
                     <label for="number" class="w-full">Nummer*</label>
-                    <input type="number" id="number" class="w-full" #numberref>
+                    <input type="text" name="number" class="w-full" #numberref ngModel required>
                 </div>
             </div>
             <div class="w-full flex gap-2 mb-3">
                 <div class="flex-1 flex flex-col">
                     <label for="zipcode" class="w-full">PLZ*</label>
-                    <input type="number" id="zipcode" class="w-full" #zipcoderef>
+                    <input type="text" name="zipcode" class="w-full" #zipcoderef ngModel required minlength="5" maxlength="5">
                 </div>
                 <div class="flex-1 flex flex-col">
                     <label for="location" class="w-full">Ort*</label>
-                    <input type="text" id="location" class="w-full" #locationref>
+                    <input type="text" name="location" class="w-full" #locationref ngModel required>
                 </div>
             </div>
             <input type="submit" value="Fortfahren" class="button-red font-bold p-5 rounded-lg cursor-pointer">

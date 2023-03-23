@@ -1,46 +1,49 @@
-import { Component, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter, Input} from '@angular/core';
+import { NgForm } from '@angular/forms'
 import { faTruck, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Address } from '../../types';
 
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
-  styleUrls: ['./address-form.component.css']
+  styleUrls: ['./address-form.component.css'],
 })
 export class AddressFormComponent {
+  @Input("address") address !: Address | null;
   @Output() back = new EventEmitter<void>()
   @Output() addressChange = new EventEmitter<Address>();
 
-  @ViewChild("nameref") nameref !: ElementRef
-  @ViewChild("surnameref") surnameref !: ElementRef
-  @ViewChild("streetref") streetref !: ElementRef
-  @ViewChild("numberref") numberref !: ElementRef
-  @ViewChild("zipcoderef") zipcoderef !: ElementRef
-  @ViewChild("locationref") locationref !: ElementRef
+  @ViewChild("adressForm") addressForm !: NgForm
 
   icons = {
     truck: faTruck,
     backicon: faArrowLeft
   }
 
-  address = <Address | null>null;
+  ngAfterViewInit(){
+    setTimeout(() => {
+      if(this.address != null)
+        this.addressForm.setValue(this.address)
+    });
+  }
 
   pageBack(){
     this.back.emit();
   }
 
-  setAddress(){
+  setAddress(addressForm : NgForm){
+    if(addressForm.invalid) return;
+
     this.address = {
-      name: this.nameref.nativeElement.value,
-      surname: this.surnameref.nativeElement.value,
-      street: this.streetref.nativeElement.value,
-      number: this.numberref.nativeElement.value,
-      zipcode: this.zipcoderef.nativeElement.value,
-      location: this.locationref.nativeElement.value
+      name: addressForm.value.name,
+      surname: addressForm.value.surname,
+      street: addressForm.value.street,
+      number: addressForm.value.number,
+      zipcode: addressForm.value.zipcode,
+      location: addressForm.value.location
     }
 
-    if(this.address.name != "" && this.address.surname != "" && this.address.street != "" && this.address.number != "" && this.address.zipcode != "") 
-      this.addressChange.emit(this.address);
+    this.addressChange.emit(this.address);
   }
 
 }
