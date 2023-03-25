@@ -1,6 +1,43 @@
+/* 
+
+    Note: The media querys of tailwindcss are used for the responsive layout! So they will not show up here.
+
+    sm would be -> @media (min-width: 640px) { ... }
+    md would be -> @media (min-width: 768px) { ... }
+    lg would be -> @media (min-width: 1024px) { ... }
+
+    Other media querys are generally not in use. 
+
+    As an example:  If there is an expression which looks like this on a paragraph tag -> <p class="sm:pl-5"> 
+                    this would generally mean something like this 
+                   
+                    @media (min-width: 640px) { 
+                        sm:pl-5{
+                            padding-left: 1.25rem; 
+                        }
+                    }
+
+    Source:
+    Customizing Screens - Tailwind CSS. (2023). 
+        Abgerufen am 25. März 2023 Tailwind CSS. https://tailwindcss.com/docs/screens
+    
+*/
+
+/* Including Tailwind */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 
+
+    Adding custom font caladea-regular 
+    
+    Source:
+    Caladea - Google Fonts. (o. D.).
+        Google Fonts. Abgerufen am 25. März 2023, von https://fonts.google.com/specimen/Caladea
+
+*/
 
 @font-face {
     font-family: caladea-regular;
@@ -12,6 +49,8 @@ html,body{
     height: 100vh;
     overflow: auto;
 }
+
+/* Custom Colors for background-colors used in theme */
 
 .bg-navigation{
     background-color: #302222;
@@ -36,6 +75,28 @@ html,body{
 .black-alpha{
     background-color: rgba(0,0,0,0.5);
 }
+
+/* Custom formular field styles used in theme */
+
+form input[type="text"],form input[type="number"]{
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    outline: 0;
+}
+
+form textarea{
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+/* 
+    Adding media query to show custom scrollbar on desktop and hide on mobile devices by pointer 
+
+    Source:
+    Detect if a browser in a mobile device (iOS/Android phone/tablet) is used. (2013, 18. Februar). 
+        Stack Overflow. Abgerufen am 25. März 2023, von https://stackoverflow.com/questions/14942081/detect-if-a-browser-in-a-mobile-device-ios-android-phone-tablet-is-used
+        
+*/
 
 @media (pointer:fine) {
     ::-webkit-scrollbar {

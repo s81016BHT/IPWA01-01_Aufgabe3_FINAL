@@ -6,14 +6,14 @@ import { Component, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./startscreen.component.css']
 })
 export class StartscreenComponent {
-  @Output() register = new EventEmitter<void>();
-  @Output() search = new EventEmitter<void>();
+  @Output() register = new EventEmitter<void>(); // Output event emitter to registration-page component to start a registration
+  @Output() search = new EventEmitter<void>(); // Output event emitter to registration-page component to search a registration
 
   startRegistration(){
-    this.register.emit();
+    this.register.emit(); // emit registration start to registrati-page component
   }
 
   searchRegistration(){
-    this.search.emit();
+    this.search.emit(); // emit search start to registrati-page component
   }
 }

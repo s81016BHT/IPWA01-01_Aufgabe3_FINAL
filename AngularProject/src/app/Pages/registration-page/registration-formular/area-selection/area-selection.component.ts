@@ -9,34 +9,37 @@ import { CheckListItem } from '../../types';
 })
 export class AreaSelectionComponent {
   
-  @Output() back = new EventEmitter<void>()
-  @Output() areasChange = new EventEmitter<String[]>();
+  @Output() back = new EventEmitter<void>() // Output event to signaling back button is pressed
+  @Output() areasChange = new EventEmitter<String[]>(); // Output event to signaling if areas have changed on submit
 
-  @Input("areasList") areas = <CheckListItem[]>[];
+  @Input("areasList") areasList = <CheckListItem[]>[]; // List of all areas the user can select from. Comes from registration-page component
 
+  /* icons which gonna be inserted into html */
   icons = {
     globe: faEarthEurope,
     backicon: faArrowLeft
   }
 
+  /* by clicking on an area button, change active state */
   updateAreaSelection(index : number){
-    this.areas.forEach((area : CheckListItem) => area.active = false);
-    this.areas[index].active = !this.areas[index].active
+    this.areasList.forEach((area : CheckListItem) => area.active = false); // Clear all selections
+    this.areasList[index].active = !this.areasList[index].active // mark a single area
   }
 
+  /* by clicking on the continue button   */
   setAreaSelection(){
-    if(this.areas == null) return;
+    if(this.areasList == null) return; // if areas is empty, do nothing
 
-    let result = this.areas.filter((area : any) => {
+    /* Filter selected areas from areasList whichs active attribute is true and return list of the titles*/
+    let result = this.areasList.filter((area : any) => {
       return area.active === true
     }).map((area : any) => area.title);
 
-    if(result.length > 0){
-      this.areasChange.emit(result);
-    }
+    if(result.length > 0) this.areasChange.emit(result); // emit areasChange event to registration-page with filtered result if at least one area is selected!
   }
 
+  /* onclick on back button emits back signal to registration-page component */
   pageBack(){
-    this.back.emit();
+    this.back.emit(); // emit back signal to registration-page
   }
 }

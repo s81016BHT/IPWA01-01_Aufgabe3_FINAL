@@ -9,7 +9,7 @@
             </div>
             <div class="grid grid-cols-2 gap-2 mb-3 sm:mb-0 overflow-auto max-h-60 sm:max-h-96">
                 <button (click)="updateClothSelection(index)" class="w-full h-20 button-brown text-white font-bold"
-                    [class.opacity-60]="!btn.active" *ngFor="let btn of clothes;let index=index;">
+                    [class.opacity-60]="!btn.active" *ngFor="let btn of clothList;let index=index;">
                     {{ btn.title }}
                 </button>
             </div>
