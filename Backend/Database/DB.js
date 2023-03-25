@@ -8,7 +8,6 @@ class DB{
         // Create Mysql connection pool on static db_con, if not already existing!
         if(DB.db_con === null){
             DB.db_con = mysql.createPool({
-                connectionLimit: 5,
                 host: "10.0.0.88",
                 user: "db_spendenanmeldung",
                 password: ")kK78y9FG8gQwWYC",

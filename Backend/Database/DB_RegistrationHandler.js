@@ -6,22 +6,23 @@ function createRegistrationID(){
 }
 
 class DBRegistrationHandler extends DB{
+
     /* Method to get all Areas from Database */
     getAllAreas(){
         return new Promise((resolve) => {
-            let query = "SELECT * FROM Areas;";
+            let query = "SELECT * FROM Areas;"; // Query for selecting all areas from the database for user selection
+            let areaList = [] // initialise empty list for areas
 
-            this.executeQuery(query).then((areas) => {
-                let areaList = []            
-                
+            /* Try to execute the query */
+            this.executeQuery(query).then((areas) => {             
                 areas.forEach(area => {
-                    areaList.push({title: area.AREANAME, active: false})
+                    areaList.push({title: area.AREANAME, active: false}) // add each area to areaList, if not empty!
                 });
 
-                resolve(areaList);
+                resolve(areaList); // resolve with areaList
             }).catch((err) => {
                 console.log("Error during execution of getAreas()!");
-                resolve(null);
+                resolve(areaList); // resolve with empty areaList on error
             });
         });
     }
@@ -29,19 +30,19 @@ class DBRegistrationHandler extends DB{
     /* Method to get all clothing types from Database */
     getAllClothes(){
         return new Promise((resolve) => {
-            let query = "SELECT * FROM Clothes;";
+            let query = "SELECT * FROM Clothes;"; // Query for selecting all clothes from the database for user selection
+            let clothesList = [] // initialise empty list for clothes
 
+            /* Try to execute the query */
             this.executeQuery(query).then((clothes) => {
-                let clothesList = []
-
                 clothes.forEach(dress => {
-                    clothesList.push({title: dress.DRESSNAME, active: false})
+                    clothesList.push({title: dress.DRESSNAME, active: false}) // add each clothing type to areaList, if not empty!
                 });
 
-                resolve(clothesList);
+                resolve(clothesList); // resolve with clothesList
             }).catch((err) => {
                 console.log("Error during execution of getClothes()!");
-                resolve(null);
+                resolve(clothesList); // resolve with empty clothesList on error
             });
         });
     }
@@ -53,20 +54,23 @@ class DBRegistrationHandler extends DB{
     /* Method to get clothes by registration_id */
     getRegistrationClothes(registration_id){
         return new Promise((resolve) => {
-            let query = `SELECT * FROM Registrations_Clothes WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
+            /* query for getting all clothes by a registration ID */
+            let query = `SELECT * FROM Registrations_Clothes WHERE registrationID = ${ this.conpool.escape(registration_id) };`; 
 
+            /* try to execute the query */
             this.executeQuery(query).then((result) => {
-                let clothArray = [];
+                if (result.length < 1) return resolve(null); // resolve with null if result is empty
+
+                let clothesList = []; // initialise empty array list for registration clothes
 
                 result.forEach((cloth) => {
-                    clothArray.push(cloth.name);
+                    clothesList.push(cloth.name); // add every cloth for a registration ID into the clothesList
                 });
 
-                resolve(clothArray);
+                resolve(clothesList); // resolve with the filled clothesList
             }).catch((err) => {
-                if(err.code != "ER_NO_SUCH_TABLE")
-                    console.log("Error during execution of getRegistrationClothes()!",err)
-                resolve(null);
+                console.log("Error during execution of getRegistrationClothes()!", err)
+                resolve(null); // resolve with null on error
             });
         });
     }
@@ -74,20 +78,22 @@ class DBRegistrationHandler extends DB{
     /* Method to get areas by registration_id */
     getRegistrationAreas(registration_id){
         return new Promise((resolve) => {
+            /* query for getting all areas by a registration ID */
             let query = `SELECT * FROM Registrations_Areas WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
             this.executeQuery(query).then((result) => {
-                let areaArray = [];
+                if (result.length < 1) return resolve(null); // resolve with null if result is empty
+
+                let areaList = []; // initialise empty array list for registration areas
 
                 result.forEach((area) => {
-                    areaArray.push(area.name);
+                    areaList.push(area.name);  // add every area for a registration ID into the areaList
                 });
 
-                resolve(areaArray);
+                resolve(areaList); // resolve with the filled areaList
             }).catch((err) => {
-                if(err.code != "ER_NO_SUCH_TABLE")
-                    console.log("Error during execution of getRegistrationAreas()",err)
-                resolve(null);
+                console.log("Error during execution of getRegistrationAreas()",err)
+                resolve(null); // resolve with null on error
             });
         });
     }
@@ -95,9 +101,14 @@ class DBRegistrationHandler extends DB{
     /* Method to get address by registration_id */
     getRegistrationAddress(registration_id){
         return new Promise((resolve) => {
+            /* query for get the address for a registration by a registration ID */
             let query = `SELECT * FROM Addresses WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
+            /* try to execute the query */
             this.executeQuery(query).then((result) => {
+                if (result.length < 1) return resolve(null); // resolve with null if result is empty
+
+                /* create address object with result data */
                 let addressobj = {
                     name: result[0].name,
                     surname: result[0].surname,
@@ -107,11 +118,10 @@ class DBRegistrationHandler extends DB{
                     location: result[0].location
                 }
 
-                resolve(addressobj);
+                resolve(addressobj); // resolve with address object
             }).catch((err) => {
-                if(err.code != "ER_NO_SUCH_TABLE")
-                    console.log("Error during execution of getRegistrationAddress()",err);
-                resolve(null);
+                console.log("Error during execution of getRegistrationAddress()",err);
+                resolve(null); // resolve with null on error
             });
         });
     }
@@ -119,34 +129,34 @@ class DBRegistrationHandler extends DB{
     /* Method to get registration by registration_id */
     getRegistration(registration_id){
         return new Promise((resolve) => {
+            /* query to get registration data by registration_id */
             let query = `SELECT * FROM Registrations WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
+            /* try to execute the query */
             this.executeQuery(query).then(async (result) => {
-                if(result.length < 1){
-                    resolve(null);
-                    return;
-                }
+                if(result.length < 1) return resolve(null); // if result is empty resolve with null and stop execution!
 
-                let dateTime = moment(result[0].timestamp);
+                let dateTime = moment(result[0].timestamp); // get date by stored timestamp
 
-                let address = await this.getRegistrationAddress(registration_id);
-                let clothes = await this.getRegistrationClothes(registration_id);
-                let areas = await this.getRegistrationAreas(registration_id);
+                let address = await this.getRegistrationAddress(registration_id); // try to get the address if exists
+                let clothes = await this.getRegistrationClothes(registration_id); // try to get the clothes
+                let areas = await this.getRegistrationAreas(registration_id); // try to get the areas
                 
-                let registrationobj = {};
+                /* create registration object by results */
+                let registrationobj = {
+                    type: result[0].type,
+                    date: dateTime.format("DD.MM.YYYY"),
+                    time: dateTime.format("HH:mm:ss"),
+                    registrationId: registration_id,
+                    clothes: clothes,
+                    areas: areas,
+                    address: address
+                };
 
-                registrationobj["type"] = result[0].type;
-                registrationobj["date"] = dateTime.format("DD.MM.YYYY");
-                registrationobj["time"] = dateTime.format("HH:mm:ss")
-                registrationobj["registrationId"] = registration_id    
-                registrationobj["clothes"] = clothes;
-                registrationobj["areas"] = areas;
-                registrationobj["address"] = address;
-
-                resolve(registrationobj);
+                resolve(registrationobj); // resolve with registration object
             }).catch((err) => {
                 console.log("Error during execution of getRegistration()",err);
-                resolve(null);
+                resolve(null); // on error resolve with null
             });
         });
     }
@@ -155,106 +165,120 @@ class DBRegistrationHandler extends DB{
                                    Registration Storing
     -------------------------------------------------------------------------------------*/
 
+    /* Method to delete a registration by registration_id, if storing phase failed */
     deleteRegistration(registration_id){
         return new Promise((resolve) => {
+            /* query for deletion of a registration by registrationID */
             let query = `DELETE FROM Registrations WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
 
+            /* try to execute the query */
             this.executeQuery(query).catch((err) => {
                 console.log("Error during execution of deleteRegistration()!");
-                resolve(false);
+                return resolve(false); // resolve with false if failed
             });
-            resolve(true);
+
+            return resolve(true); // resolve with true if failed
         });
     }
 
     /* Method of storing addres by registration_id */
     storeAddress(type,address,registration_id){
         return new Promise((resolve) => {
-            if(type == "Übergabe an der Geschäftsstelle") resolve(true);
-            if(address == null) resolve(false);
+            if(type == "Übergabe an der Geschäftsstelle") return resolve(true); // resolve true if type is not collection
+            if(address == null) return resolve(false); // if address is null, resolve with false
 
+            /* query for storing an address for a registration */
             let query = `INSERT INTO Registration_Addresses(registrationID,name,surname,street,number,zipcode,location) 
                          VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(address.name) },
                                  ${ this.conpool.escape(address.surname) },${ this.conpool.escape(address.street) },
                                  ${this.conpool.escape(address.number)},${this.conpool.escape(address.zipcode)},
                                  ${this.conpool.escape(address.location)});`;
 
+            /* try to execute the query */
             this.executeQuery(query).catch((err) => {
                 console.log("Error during execution of storeAddress()!",err);
-                resolve(false);
+                return resolve(false); // on error resolve with false
             });
 
-            resolve(true);
+            return resolve(true); // else resolve with true
         });
     }
 
     /* Method of storing selected clothes by registration ID */
     storeClothes(clothes,registration_id){
         return new Promise((resolve) => {
-            if(clothes == false) resolve(false);
-
-            clothes.forEach(cloth => {
+            clothes.forEach(clothing => {
+                /* query to store each clothing in Registrations_Clothes table */ 
                 let query = `INSERT INTO Registrations_Clothes(registrationID,name) 
-                             VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(cloth)})`;
+                             VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(clothing)})`;
 
+                /* try to execute the query */
                 this.executeQuery(query).catch((err) => {
                     console.log("Error during execution of storeClothes()!",err);
-                    resolve(false);
+                    return resolve(false); // resolve with false on error
                 });
             });
 
-            resolve(true);
+            return resolve(true); // else resolve with true on success
         });
     }
 
     /* Method of storing selected areas by registration ID */
     storeAreas(areas,registration_id){
         return new Promise((resolve) => {
-            if(areas == null) resolve(false);
-
             areas.forEach(area => {
+                /* query to store each area in Registrations_Areas table */ 
                 let query = `INSERT INTO Registrations_Areas(registrationID,name) 
                              VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(area)})`;
 
+                /* try to execute the query */
                 this.executeQuery(query).catch((err) => {
                     console.log("Error during execution of storeAreas()!",err);
-                    resolve(false);
+                    return resolve(false); // on error resolve with false
                 });
             });
 
-            resolve(true);
+            return resolve(true); // else return with true
         });
     }
 
     /* Method of storing registration type, date and time by registration ID */
     storeRegistration(registration){
         return new Promise((resolve) => {
-            let currentDateTime = moment();
-            let registration_id = createRegistrationID();
+            if(!Array.isArray(registration.areas)) return resolve(null); // if registration areas is not an array resolve with null
+            if(!Array.isArray(registration.clothes)) return resolve(null); // if registration clothes is not an array resolve with null
+            if(registration.areas.length < 1) return resolve(null); // if registration areas array is empty resolve with null
+            if(registration.clothes.length < 1) return resolve(null); // if registration clothes array is empty resolve with null
 
+            let currentDateTime = moment(); // Get current DateTime by moment.js library
+            let registration_id = createRegistrationID(); // generate a new unique registration ID by Date in milliseconds
+
+            /* Query for storing a new registration */
             let query = `INSERT INTO Registrations(registrationID,type,timestamp) 
                          VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(registration.type)},
                                  ${this.conpool.escape(currentDateTime.format("YYYY-MM-DDTHH:mm:ss"))})`
 
-            registration["date"] = currentDateTime.format("DD.MM.YYYY");
-            registration["time"] = currentDateTime.format("HH:mm:ss");
-            registration["registrationId"] = registration_id
+            registration["date"] = currentDateTime.format("DD.MM.YYYY"); // Store date in registration
+            registration["time"] = currentDateTime.format("HH:mm:ss"); // Store time in registration
+            registration["registrationId"] = registration_id // Store registration ID in registration
 
+            /* try to execute the query */
             this.executeQuery(query).then(async (result) => {
                 if(!await this.storeAddress(registration.type,registration.address,registration_id)) 
-                    this.deleteRegistration(registration_id).then(resolve(null));
+                    this.deleteRegistration(registration_id).then(resolve(null)); // try to delete inserted registration if address storing failed and resolve with null
                 if(!await this.storeClothes(registration.clothes,registration_id)) 
-                    this.deleteRegistration(registration_id).then(resolve(null));
+                    this.deleteRegistration(registration_id).then(resolve(null)); // try to delete inserted registration if address storing failed and resolve with null
                 if(!await this.storeAreas(registration.areas,registration_id)) 
-                    this.deleteRegistration(registration_id).then(resolve(null));
+                    this.deleteRegistration(registration_id).then(resolve(null)); // try to delete inserted registration if address storing failed and resolve with null
 
-                resolve(registration);
+                return resolve(registration); // resolve with stored registration on success
             }).catch((err) => {
                 console.log("Error during execution of storeRegistration()",err)
-                resolve(null);
+                return resolve(null); // on error resolve with null!
             });
         });
     }
+
 }
 
 module.exports.DBRegistrationHandler = DBRegistrationHandler;
