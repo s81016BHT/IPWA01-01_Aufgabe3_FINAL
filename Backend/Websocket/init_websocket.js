@@ -1,17 +1,17 @@
 const { Server } = require("socket.io");
 const { registrationEvents } = require("./registration_events");
 
-// Function for initialising a Websocket Server based on SocketIo
+/* Function for creating a Websocket Server based on SocketIo and the https server instance */
 function createWebsocketServer(https_server){
 
-    // Setup SocketIo Server based on existing https server instance
+    /* Setup SocketIo Server based on existing https server instance */
     const io = new Server(https_server,{
         cors:{
-            origin: "*"
+            origin: "*" // Allow all origins (could be changed later to an actual location!)
         }
     });
 
-    // initialising registration events
+    /* creating registration events */
     registrationEvents(io)
 }
 
