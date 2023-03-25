@@ -20,6 +20,7 @@ export class AreaSelectionComponent {
   }
 
   updateAreaSelection(index : number){
+    this.areas.forEach((area : CheckListItem) => area.active = false);
     this.areas[index].active = !this.areas[index].active
   }
 

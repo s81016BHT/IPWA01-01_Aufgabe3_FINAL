@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Address, Registration } from './types';
+import { Address, Registration, RegistrationSearch } from './types';
 import { SocketService } from 'src/app/socket-service';
 
 @Component({
@@ -29,16 +29,16 @@ export class RegistrationPageComponent {
     });
 
     this.socket.listen("registration").subscribe((data: any) => {
-      if(data != null){
-        this.registration = data;
+      if(data.registration != null){
+        this.registration = data.registration;
         this.nextPage(7);
       }
     });
 
-    this.socket.listen("getClothes").subscribe((data: any) => this.clothesList = data);
+    this.socket.listen("getClothes").subscribe((data: any) => this.clothesList = data.clothes);
     this.socket.emit("getClothes", null);
 
-    this.socket.listen("getAreas").subscribe((data: any) => this.areasList = data);
+    this.socket.listen("getAreas").subscribe((data: any) => this.areasList = data.areas);
     this.socket.emit("getAreas", null);
   }
 
@@ -67,7 +67,7 @@ export class RegistrationPageComponent {
     this.address = address;
 
     if(this.socket.connected)
-      this.socket.emit("addressValidation", this.address)
+      this.socket.emit("addressValidation",<Address>this.address)
   }
 
   setClothes(clothes: String[]) {
@@ -82,12 +82,18 @@ export class RegistrationPageComponent {
 
   finishRegistration() {
     if (this.socket.connected && this.type != null && this.clothes != null && this.areas != null)
-      this.socket.emit("newRegistration",<Registration>{type: this.type,address: this.address,clothes: this.clothes,areas: this.areas});
+      this.socket.emit("newRegistration",<Registration>{
+        type: this.type,
+        address: this.address,
+        clothes: this.clothes,
+        areas: this.areas
+      });
   }
 
   getRegistration(registrationId : any){
-    if(this.socket.connected)
-      this.socket.emit("getRegistration",registrationId);
+    if(this.socket.connected && registrationId != "")
+      this.socket.emit("getRegistration",<RegistrationSearch>{
+        registrationId: registrationId
+      });
   }
-
 }

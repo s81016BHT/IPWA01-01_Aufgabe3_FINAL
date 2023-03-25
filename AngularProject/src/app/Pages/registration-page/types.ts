@@ -1,3 +1,13 @@
+export interface Registration{
+    type: String,
+    address: Address | null,
+    clothes: String[],
+    areas: String[],
+    date ?: String,
+    time ?: String,
+    registrationId ?: String
+}
+
 export interface Address{
     name: String,
     surname: String,
@@ -7,14 +17,8 @@ export interface Address{
     location: String
 }
 
-export interface Registration{
-    type: String,
-    address: Address | null,
-    clothes: String[],
-    areas: String[],
-    date ?: String,
-    time ?: String,
-    registrationId ?: String
+export interface RegistrationSearch{
+    registrationId: String
 }
 
 export interface CheckListItem{

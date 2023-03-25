@@ -3,11 +3,11 @@ const { DBRegistrationHandler } = require("../Database/DB_RegistrationHandler")
 /* KeyLists received json must include! */
 const addressKeys = ['name', 'surname', 'street', 'number', 'zipcode', 'location'];
 const registrationKeys = ['type', 'address', 'clothes', 'areas'];
-const registrationSearchKeys = ['registrationID'];
+const registrationSearchKeys = ['registrationId'];
 
 /* function to check zipcode for address validation */
-function checkZipCode(zipcode) {
-    if (zipcode == 10407) return true
+function checkZipCode(address) {
+    if (address.zipcode == 10407) return true
     return false;
 }
 
@@ -54,7 +54,7 @@ function registrationEvents(io) {
             }
 
             socket.emit("addressValidation", {
-                addressValid: checkZipCode(data.zipcode) // Returns true if zipcodes matching, else false!
+                addressValid: checkZipCode(data) // Returns true if zipcodes matching, else false!
             });
         });
 
@@ -79,7 +79,7 @@ function registrationEvents(io) {
                 return;                                               // if not, return null for registration
             }
 
-            dbhandler.getRegistration(data).then((registration) => {
+            dbhandler.getRegistration(data.registrationId).then((registration) => {
                 socket.emit("registration", {
                     registration: registration // Returns stored registration if found or null value
                 });

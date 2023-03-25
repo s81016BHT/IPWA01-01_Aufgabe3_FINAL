@@ -7,6 +7,10 @@ function createRegistrationID(){
 
 class DBRegistrationHandler extends DB{
 
+    /*-----------------------------------------------------------------------------------
+                                Get Data for user selection
+    -------------------------------------------------------------------------------------*/
+
     /* Method to get all Areas from Database */
     getAllAreas(){
         return new Promise((resolve) => {
@@ -48,14 +52,14 @@ class DBRegistrationHandler extends DB{
     }
 
     /*-----------------------------------------------------------------------------------
-                                 Search existing registration
+                                Search existing registration
     -------------------------------------------------------------------------------------*/
 
     /* Method to get clothes by registration_id */
     getRegistrationClothes(registration_id){
         return new Promise((resolve) => {
-            /* query for getting all clothes by a registration ID */
-            let query = `SELECT * FROM Registrations_Clothes WHERE registrationID = ${ this.conpool.escape(registration_id) };`; 
+            /* query for getting all clothes by a registration ID from Registrations_Clothes table */
+            let query = `SELECT * FROM Registrations_Clothes WHERE registrationID = ${ DB.dbcon_pool.escape(registration_id) };`; 
 
             /* try to execute the query */
             this.executeQuery(query).then((result) => {
@@ -78,8 +82,8 @@ class DBRegistrationHandler extends DB{
     /* Method to get areas by registration_id */
     getRegistrationAreas(registration_id){
         return new Promise((resolve) => {
-            /* query for getting all areas by a registration ID */
-            let query = `SELECT * FROM Registrations_Areas WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
+            /* query for getting all areas by a registration ID from Registrations_Areas table */
+            let query = `SELECT * FROM Registrations_Areas WHERE registrationID = ${ DB.dbcon_pool.escape(registration_id) };`;
 
             this.executeQuery(query).then((result) => {
                 if (result.length < 1) return resolve(null); // resolve with null if result is empty
@@ -101,8 +105,8 @@ class DBRegistrationHandler extends DB{
     /* Method to get address by registration_id */
     getRegistrationAddress(registration_id){
         return new Promise((resolve) => {
-            /* query for get the address for a registration by a registration ID */
-            let query = `SELECT * FROM Addresses WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
+            /* query for get the address for a registration by a registration ID from Registrations_Addresses table */
+            let query = `SELECT * FROM Registrations_Addresses WHERE registrationID = ${ DB.dbcon_pool.escape(registration_id) };`;
 
             /* try to execute the query */
             this.executeQuery(query).then((result) => {
@@ -129,8 +133,8 @@ class DBRegistrationHandler extends DB{
     /* Method to get registration by registration_id */
     getRegistration(registration_id){
         return new Promise((resolve) => {
-            /* query to get registration data by registration_id */
-            let query = `SELECT * FROM Registrations WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
+            /* query to get registration data by registration_id from Registrations table */
+            let query = `SELECT * FROM Registrations WHERE registrationID = ${ DB.dbcon_pool.escape(registration_id) };`;
 
             /* try to execute the query */
             this.executeQuery(query).then(async (result) => {
@@ -168,8 +172,8 @@ class DBRegistrationHandler extends DB{
     /* Method to delete a registration by registration_id, if storing phase failed */
     deleteRegistration(registration_id){
         return new Promise((resolve) => {
-            /* query for deletion of a registration by registrationID */
-            let query = `DELETE FROM Registrations WHERE registrationID = ${ this.conpool.escape(registration_id) };`;
+            /* query for deletion of a registration by registrationID from Registrations table -> cascades deletion in other tables! */
+            let query = `DELETE FROM Registrations WHERE registrationID = ${ DB.dbcon_pool.escape(registration_id) };`;
 
             /* try to execute the query */
             this.executeQuery(query).catch((err) => {
@@ -181,18 +185,18 @@ class DBRegistrationHandler extends DB{
         });
     }
 
-    /* Method of storing addres by registration_id */
+    /* Method of storing address by registration_id */
     storeAddress(type,address,registration_id){
         return new Promise((resolve) => {
             if(type == "Übergabe an der Geschäftsstelle") return resolve(true); // resolve true if type is not collection
             if(address == null) return resolve(false); // if address is null, resolve with false
 
-            /* query for storing an address for a registration */
-            let query = `INSERT INTO Registration_Addresses(registrationID,name,surname,street,number,zipcode,location) 
-                         VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(address.name) },
-                                 ${ this.conpool.escape(address.surname) },${ this.conpool.escape(address.street) },
-                                 ${this.conpool.escape(address.number)},${this.conpool.escape(address.zipcode)},
-                                 ${this.conpool.escape(address.location)});`;
+            /* query for storing an address in Registrations_Addresses table */
+            let query = `INSERT INTO Registrations_Addresses(registrationID,name,surname,street,number,zipcode,location) 
+                         VALUES (${DB.dbcon_pool.escape(registration_id)},${DB.dbcon_pool.escape(address.name) },
+                                 ${DB.dbcon_pool.escape(address.surname) },${DB.dbcon_pool.escape(address.street) },
+                                 ${DB.dbcon_pool.escape(address.number)},${DB.dbcon_pool.escape(address.zipcode)},
+                                 ${DB.dbcon_pool.escape(address.location)});`;
 
             /* try to execute the query */
             this.executeQuery(query).catch((err) => {
@@ -210,7 +214,7 @@ class DBRegistrationHandler extends DB{
             clothes.forEach(clothing => {
                 /* query to store each clothing in Registrations_Clothes table */ 
                 let query = `INSERT INTO Registrations_Clothes(registrationID,name) 
-                             VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(clothing)})`;
+                             VAlUES (${DB.dbcon_pool.escape(registration_id)},${DB.dbcon_pool.escape(clothing)})`;
 
                 /* try to execute the query */
                 this.executeQuery(query).catch((err) => {
@@ -229,7 +233,7 @@ class DBRegistrationHandler extends DB{
             areas.forEach(area => {
                 /* query to store each area in Registrations_Areas table */ 
                 let query = `INSERT INTO Registrations_Areas(registrationID,name) 
-                             VAlUES (${this.conpool.escape(registration_id)},${this.conpool.escape(area)})`;
+                             VAlUES (${DB.dbcon_pool.escape(registration_id)},${DB.dbcon_pool.escape(area)})`;
 
                 /* try to execute the query */
                 this.executeQuery(query).catch((err) => {
@@ -253,10 +257,10 @@ class DBRegistrationHandler extends DB{
             let currentDateTime = moment(); // Get current DateTime by moment.js library
             let registration_id = createRegistrationID(); // generate a new unique registration ID by Date in milliseconds
 
-            /* Query for storing a new registration */
+            /* Query for storing a new registration in Registrations table */
             let query = `INSERT INTO Registrations(registrationID,type,timestamp) 
-                         VALUES (${this.conpool.escape(registration_id)},${this.conpool.escape(registration.type)},
-                                 ${this.conpool.escape(currentDateTime.format("YYYY-MM-DDTHH:mm:ss"))})`
+                         VALUES (${DB.dbcon_pool.escape(registration_id)},${DB.dbcon_pool.escape(registration.type)},
+                                 ${DB.dbcon_pool.escape(currentDateTime.format("YYYY-MM-DDTHH:mm:ss"))})`
 
             registration["date"] = currentDateTime.format("DD.MM.YYYY"); // Store date in registration
             registration["time"] = currentDateTime.format("HH:mm:ss"); // Store time in registration
