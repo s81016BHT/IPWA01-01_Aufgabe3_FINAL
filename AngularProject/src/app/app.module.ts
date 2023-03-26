@@ -1,17 +1,24 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';                // Routing Module for dynamic routing
+import { BrowserModule } from '@angular/platform-browser';              // Browser Module for dynamic value insertion into the DOM
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';   // Font Awesome Library
+import { FormsModule } from '@angular/forms';                           // Form Module for formular handling
 
-import { AppRoutingModule } from './app-routing.module';
+/* Root module */
 import { AppComponent } from './app.component';
+
+/* Pages of the webaplication */
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
 import { ImprintPageComponent } from './Pages/imprint-page/imprint-page.component';
 import { PrivacyPageComponent } from './Pages/privacy-page/privacy-page.component';
 import { RegistrationPageComponent } from './Pages/registration-page/registration-page.component';
+
+/* Static components used multiple */
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { CircularLoadingComponent } from './Components/circular-loading/circular-loading.component';
+
+/* Registration Page */
 import { StartscreenComponent } from './Pages/registration-page/registration-formular/startscreen/startscreen.component';
 import { LocationSelectionComponent } from './Pages/registration-page/registration-formular/location-selection/location-selection.component';
 import { AddressFormComponent } from './Pages/registration-page/registration-formular/address-form/address-form.component';
