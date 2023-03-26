@@ -19,13 +19,13 @@ import { FooterComponent } from './Components/footer/footer.component';
 import { CircularLoadingComponent } from './Components/circular-loading/circular-loading.component';
 
 /* Registration Page */
-import { StartscreenComponent } from './Pages/registration-page/registration-formular/startscreen/startscreen.component';
-import { LocationSelectionComponent } from './Pages/registration-page/registration-formular/location-selection/location-selection.component';
-import { AddressFormComponent } from './Pages/registration-page/registration-formular/address-form/address-form.component';
-import { ClothingSelectionComponent } from './Pages/registration-page/registration-formular/clothing-selection/clothing-selection.component';
-import { AreaSelectionComponent } from './Pages/registration-page/registration-formular/area-selection/area-selection.component';
-import { RegistrationOverviewComponent } from './Pages/registration-page/registration-formular/registration-overview/registration-overview.component';
-import { RegistrationSearchComponent } from './Pages/registration-page/registration-formular/registration-search/registration-search.component';
+import { StartscreenComponent } from './Pages/registration-page/registration-formular/1_startscreen/startscreen.component';
+import { LocationSelectionComponent } from './Pages/registration-page/registration-formular/2_location-selection/location-selection.component';
+import { AddressFormComponent } from './Pages/registration-page/registration-formular/3_address-form/address-form.component';
+import { ClothingSelectionComponent } from './Pages/registration-page/registration-formular/4_clothing-selection/clothing-selection.component';
+import { AreaSelectionComponent } from './Pages/registration-page/registration-formular/5_area-selection/area-selection.component';
+import { RegistrationOverviewComponent } from './Pages/registration-page/registration-formular/6_registration-overview/registration-overview.component';
+import { RegistrationSearchComponent } from './Pages/registration-page/registration-formular/7_registration-search/registration-search.component';
 
 @NgModule({
   declarations: [
