@@ -1,7 +1,13 @@
-SSL certificate was created by using openssl.
+SSL certificate was created by using openssl. For generating a certificate you can use the following command.
+Make shure, you are in the same directory!
 
-openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout localhost.key -out localhost.crt
+-------------------------------------------------------------------------------------------------------------
+
+  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout localhost.key -out localhost.crt
+
+-------------------------------------------------------------------------------------------------------------
 
 Source:
 John, A. (2022, 16. Oktober). 
-    Generate Self-Signed SSL certificate using OpenSSL in one line. Arul’s Utilities. Abgerufen am 25. März 2023, von https://aruljohn.com/blog/self-signed-certificate
+    Generate Self-Signed SSL certificate using OpenSSL in one line. Arul’s Utilities. 
+    Abgerufen am 25. März 2023, von https://aruljohn.com/blog/self-signed-certificate
