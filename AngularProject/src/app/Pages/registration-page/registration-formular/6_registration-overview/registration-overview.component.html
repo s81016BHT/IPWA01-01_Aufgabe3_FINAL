@@ -1,7 +1,8 @@
 <img src="./assets/images/gallery/equador.png" alt="Background image child" class="w-full h-full object-cover">
 <div class="absolute top-0 w-full h-full p-5 md:px-28 lg:px-64 flex flex-col justify-center black-alpha">
-    <div class="flex flex-col h-full gap-3" *ngIf="registrationData !== null">
-        <div class="w-full flex flex-col gap-3 p-5 rounded-lg bg-red text-xl overflow-auto">
+    <div class="flex flex-col h-full justify-center gap-3">
+        <!-- Show registration object data, if passed registration object is not null -->
+        <div class="w-full flex flex-col gap-3 p-5 rounded-lg bg-red text-xl overflow-auto" *ngIf="registrationData !== null; else notFound">
             <h1 class="text-3xl font-bold text-white">Registrationsdaten</h1>
             <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="w-full">
@@ -63,6 +64,13 @@
             </div>
             <p class="text-white">Bitte speichere nachfolgend die Informationen zu deiner Registrationsid ab, um diese bei Rückfragen vorlegen zu können.</p>
         </div>
+        <!-- Show error page if passed registration object is null -->
+        <ng-template #notFound> 
+            <div class="flex flex-col gap-3 p-5 rounded-lg bg-red text-xl overflow-auto text-white">
+                <h1 class="text-3xl font-bold">Registrationsdaten</h1>
+                <p class="text-xl">Registrationsdaten können nicht geladen werden! Entweder wurden sie nicht richtig gespeichert, oder deine Registrations ID ist falsch! Bitte erneut versuchen oder an einen Mitarbeiter wenden!</p>
+            </div>
+        </ng-template>
         <button class="button-red w-full font-bold p-5 rounded-lg text-xl text-white" (click)="pageBack()">Übersicht schließen</button>
     </div>
 </div>

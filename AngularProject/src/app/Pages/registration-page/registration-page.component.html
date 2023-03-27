@@ -1,4 +1,5 @@
 <section class="relative fullview">
+    <!-- List of all formular pages visible by currentPage number -->
     <ng-container *ngIf="currentPage == 1">
         <app-startscreen (register)="nextPage(2)" (search)="nextPage(8)"></app-startscreen>
     </ng-container>
@@ -24,10 +25,10 @@
     </ng-container>
 
     <ng-container *ngIf="currentPage == 7">
-        <app-registration-overview [registrationData]="registration" (back)="nextPage(1)"></app-registration-overview>
+        <app-registration-overview (back)="nextPage(1)" [registrationData]="registration"></app-registration-overview>
     </ng-container>
 
     <ng-container *ngIf="currentPage == 8">
-        <app-registration-search (registrationIdChanged)="getRegistration($event)"  (back)="nextPage(1)"></app-registration-search>
+        <app-registration-search (back)="nextPage(1)" (registrationIdChanged)="getRegistration($event)"></app-registration-search>
     </ng-container>
 </section>

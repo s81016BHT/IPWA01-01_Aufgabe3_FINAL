@@ -5,7 +5,8 @@
         <h1 class="text-3xl sm:text-4xl font-bold mb-3">Du hast dich bereits registiert?</h1>
         <p>Dann gib jetzt bitte nachfolgend deine Registrations ID ein, damit wir deine registierte Spende suchen können.</p>
         <form class="flex flex-col gap-3 mt-5" (submit)="getRegistration()" onsubmit="return false">
-            <input class="text-center text-2xl font-bold" type="text" #registrationIdref>
+            <input class="text-center text-2xl font-bold" type="number" id="registrationId">
+            <p id="errorMsg"></p>
             <input type="submit" value="Spende suchen" class="button-red font-bold p-5 rounded-lg cursor-pointer">
         </form>
     </div>
