@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io } from "socket.io-client";
 import { Observable } from "rxjs";
+import { environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,10 @@ export class SocketService {
   connected = false;
 
   constructor() {
-    this.socket = io("wss://127.0.0.1");
+    if(!environment.production)
+      this.socket = io("wss://127.0.0.1");
+    else
+      this.socket = io();
 
     this.socket.on("connect",() => {
       console.log("Successfully connected to SocketServer!");
