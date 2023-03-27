@@ -7,18 +7,20 @@ import { FormsModule } from '@angular/forms';                           // Form 
 /* Root module */
 import { AppComponent } from './app.component';
 
-/* Pages of the webaplication */
-import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
-import { ImprintPageComponent } from './Pages/imprint-page/imprint-page.component';
-import { PrivacyPageComponent } from './Pages/privacy-page/privacy-page.component';
-import { RegistrationPageComponent } from './Pages/registration-page/registration-page.component';
-
-/* Static components used multiple */
+/* Static components visible on all pages */
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
-import { CircularLoadingComponent } from './Components/circular-loading/circular-loading.component';
+
+/* Lading Page of the webaplication */
+import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
+import { CircularLoadingComponent } from './Pages/landing-page/circular-loading/circular-loading.component';
+
+/* Imprint and privacy page of the webapplication */
+import { ImprintPageComponent } from './Pages/imprint-page/imprint-page.component';
+import { PrivacyPageComponent } from './Pages/privacy-page/privacy-page.component';
 
 /* Registration Page */
+import { RegistrationPageComponent } from './Pages/registration-page/registration-page.component';
 import { StartscreenComponent } from './Pages/registration-page/registration-formular/1_startscreen/startscreen.component';
 import { LocationSelectionComponent } from './Pages/registration-page/registration-formular/2_location-selection/location-selection.component';
 import { AddressFormComponent } from './Pages/registration-page/registration-formular/3_address-form/address-form.component';
@@ -30,13 +32,13 @@ import { RegistrationSearchComponent } from './Pages/registration-page/registrat
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
     LandingPageComponent,
+    CircularLoadingComponent,
     ImprintPageComponent,
     PrivacyPageComponent,
     RegistrationPageComponent,
-    HeaderComponent,
-    FooterComponent,
-    CircularLoadingComponent,
     StartscreenComponent,
     LocationSelectionComponent,
     AddressFormComponent,
@@ -51,7 +53,6 @@ import { RegistrationSearchComponent } from './Pages/registration-page/registrat
     FontAwesomeModule,
     FormsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
