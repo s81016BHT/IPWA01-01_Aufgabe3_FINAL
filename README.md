@@ -70,10 +70,6 @@ and is located in the raw form under AngularProject. Before making any changes, 
 
 The frontend folder structure consists of two parts. The static components Header and Footer are in the Components folder. The pages which are routed in the router module are located the Pages folder, such as a page for the imprint, privacy, landing-page and the registration-formular
 
-### Communication Frontend-Backend
-
-For the Frontend and Backend communication a Websocket Server build with socket.io is used. See SocketServer in app root folder.
-
 ## Backend
 
 The backend of the project was built using 
@@ -94,39 +90,89 @@ The Backend consists of 3 Folders.
 
 The server.js initializes the express app, the HTTP server to redirect to https, and the https server to serve the express app and the files contained in the distribution folder
 
-### Communication Models
+## Communication Models
 
-Typescript declaration sheet for a Registration-Object 
+### Communication Methods Backend-Frontend
+
+Various endpoints based on socket.io events are used to exchange data between the backend and frontend. The following table is intended to show how the backend reacts in the respective endpoints.
+
+| Endpoint Backend  | Requests             | Response                             |Emits to Frontend |
+| ------------------|----------------------|--------------------------------------|------------------|
+| getClothes        |                      | List of clothes respone Object-Array |getClothes        |
+| getAreas          |                      | List of areas respone Object-Array   |getAreas          | 
+| addressValidation |Address-Object        | Address validation response Object   |addressValidation |
+| newRegistration   |Registration-Object   | Registration respone Object          |registration      |
+| getRegistration   |Search request Object | Registration respone Object          |registration      |
+
+
+##### List of clothes respone Object-Array
 ```ts
 {
-    type: String,
-    address: Address | null,
-    clothes: String[],
-    areas: String[],
-    date ?: String,
-    time ?: String,
-    registrationId ?: String
+  clothes: ChecklistItem-Object[]
 }
 ```
 
-Typescript declaration sheet for an Address-Object 
+##### List of areas respone Object-Array
 ```ts
 {
-    name: String,
-    surname: String,
-    street: String,
-    number: Number,
-    zipcode: Number,
-    location: String
+  areas: ChecklistItem-Object[]
 }
 ```
 
-Typescript declaration sheet for an Search request Object 
+##### Registration respone Object
 ```ts
 {
-    registrationId: Number
+  registration: Registration-Object | null
 }
 ```
 
-Can be seen under types.ts in registration-page and showing the objects shared between backend and frontend
+##### Address validation response Object
+```ts
+{
+  addressValid: Boolean
+}
+```
+
+##### Search request Object 
+```ts
+{
+  registrationId: Number
+}
+```
+
+### General Objects
+
+##### Registration-Object
+```ts
+{
+  type: String,
+  address: Address | null,
+  clothes: String[],
+  areas: String[],
+  date ?: String,
+  time ?: String,
+  registrationId ?: String
+}
+```
+
+##### Address-Object
+```ts
+{
+  name: String,
+  surname: String,
+  street: String,
+  number: Number,
+  zipcode: Number,
+  location: String
+}
+```
+
+##### ChecklistItem-Object
+```ts
+{
+  title: String,
+  active: boolean
+}
+```
+
 
