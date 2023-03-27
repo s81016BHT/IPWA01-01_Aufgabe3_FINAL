@@ -15,7 +15,7 @@ export class CircularLoadingComponent {
 
   ngAfterViewInit(){
     /* create IntersectionObserver to load up percentag view animation if visible */
-    if(this.animationObserver != null)
+    if(this.animationObserver == null)
       this.animationObserver = new IntersectionObserver((entries) =>{
         if(entries[0].isIntersecting && this.animated == false){
           let percentige = this.percentige
