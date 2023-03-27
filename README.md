@@ -2,7 +2,7 @@
 
 This is a university project for the IPWA01-01 course in the media informatics course at the IU - International University
 
-## Instructions for initial Setup
+## Instructions for initial setup
 ### Dependencies
 This project was build with node.js https://nodejs.org/en and consists of two parts. 
 
