@@ -12,13 +12,13 @@ export interface Address{
     name: String,
     surname: String,
     street: String,
-    number: String,
-    zipcode: String,
+    number: Number,
+    zipcode: Number,
     location: String
 }
 
 export interface RegistrationSearch{
-    registrationId: String
+    registrationId: Number
 }
 
 export interface CheckListItem{

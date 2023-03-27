@@ -22,7 +22,7 @@
                     <p>{{ registrationData.registrationId }}</p>
                 </div>
             </div>
-            <div *ngIf="registrationData.type == 'Abholung' && registrationData.address !== null" class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
+            <div *ngIf="registrationData.address !== null; else localeAddress" class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold">Name</h2>
                     <p>{{ registrationData.address.name }}</p>
@@ -33,11 +33,7 @@
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold">Straße</h2>
-                    <p>{{ registrationData.address.street }}</p>
-                </div>
-                <div class="basis-1/3 flex-1">
-                    <h2 class="mb-3 font-bold">Hausnummer</h2>
-                    <p>{{ registrationData.address.number }}</p>
+                    <p>{{ registrationData.address.street }} {{ registrationData.address.number }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold">Postleitzahl</h2>
@@ -48,6 +44,26 @@
                     <p>{{ registrationData.address.location }}</p>
                 </div>
             </div>
+            <ng-template #localeAddress>
+                <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
+                    <div class="basis-full">
+                        <h2 class="mb-3 font-bold">Verein</h2>
+                        <p>HelpThemAll E.V.</p>
+                    </div>
+                    <div class="basis-1/3 flex-1">
+                        <h2 class="mb-3 font-bold">Straße</h2>
+                        <p>Musterweg 12</p>
+                    </div>
+                    <div class="basis-1/3 flex-1">
+                        <h2 class="mb-3 font-bold">Postleitzahl</h2>
+                        <p>12345</p>
+                    </div>
+                    <div class="basis-1/3 flex-1">
+                        <h2 class="mb-3 font-bold">Ort</h2>
+                        <p>Musterstadt</p>
+                    </div>
+                </div>
+            </ng-template>
             <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="flex-1">
                     <h2 class="mb-3 font-bold">Ausgewählte Kleidungsstücke</h2>

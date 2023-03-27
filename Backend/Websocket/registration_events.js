@@ -7,7 +7,7 @@ const registrationSearchKeys = ['registrationId'];
 
 /* function to check zipcode for address validation */
 function checkZipCode(address) {
-    if (address.zipcode == 10407) return true
+    if (address.zipcode === 12345) return true
     return false;
 }
 
