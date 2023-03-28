@@ -6,6 +6,7 @@ export interface Registration{
     date ?: String,
     time ?: String,
     registrationId ?: String
+    state ?: String
 }
 
 export interface Address{

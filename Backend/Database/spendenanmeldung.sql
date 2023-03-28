@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Erstellungszeit: 27. Mrz 2023 um 14:54
+-- Erstellungszeit: 28. Mrz 2023 um 19:53
 -- Server-Version: 10.5.18-MariaDB-0+deb11u1
 -- PHP-Version: 7.4.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `spendenanmeldung`
+-- Datenbank: `SpendenanmeldungDB`
 --
 
 -- --------------------------------------------------------
@@ -80,7 +80,7 @@ CREATE TABLE `Registrations` (
   `registrationID` varchar(50) NOT NULL,
   `type` varchar(50) NOT NULL,
   `timestamp` datetime NOT NULL,
-  `state` varchar(10) NOT NULL DEFAULT 'Open'
+  `state` varchar(10) NOT NULL DEFAULT 'Offen'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -135,7 +135,7 @@ CREATE TABLE `Registrations_Clothes` (
 
 DROP TABLE IF EXISTS `States`;
 CREATE TABLE `States` (
-  `STATE` varchar(10) NOT NULL
+  `STATE` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -143,9 +143,10 @@ CREATE TABLE `States` (
 --
 
 INSERT INTO `States` (`STATE`) VALUES
-('Closed'),
-('Finished'),
-('Open');
+('Abgeschlossen'),
+('Geschlossen'),
+('In Bearbeitung'),
+('Offen');
 
 -- --------------------------------------------------------
 

@@ -6,73 +6,77 @@
             <h1 class="text-3xl font-bold text-white">Registrationsdaten</h1>
             <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="w-full">
-                    <h2 class="mb-3 font-bold">Typ</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Typ</h2>
                     <p>{{ registrationData.type }}</p>
                 </div>
-                <div class="flex-1">
-                    <h2 class="mb-3 font-bold">Datum</h2>
+                <div class="basis-1/3 flex-1">
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Datum</h2>
                     <p>{{ registrationData.date }}</p>
                 </div>
-                <div class="flex-1">
-                    <h2 class="mb-3 font-bold">Uhrzeit</h2>
+                <div class="basis-1/3 flex-1">
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Uhrzeit</h2>
                     <p>{{ registrationData.time }}</p>
                 </div>
-                <div class="w-full">
-                    <h3 class="mb-3 font-bold">Registrations ID</h3>
+                <div class="basis-1/3 flex-1">
+                    <h3 class="mb-3 font-bold whitespace-nowrap">Registrations ID</h3>
                     <p>{{ registrationData.registrationId }}</p>
+                </div>
+                <div class="basis-1/3 flex-1">
+                    <h3 class="mb-3 font-bold whitespace-nowrap">Status</h3>
+                    <p>{{ registrationData.state }}</p>
                 </div>
             </div>
             <div *ngIf="registrationData.address !== null; else localeAddress" class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="basis-1/3 flex-1">
-                    <h2 class="mb-3 font-bold">Name</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Name</h2>
                     <p>{{ registrationData.address.name }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
-                    <h2 class="mb-3 font-bold">Vorname</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Vorname</h2>
                     <p>{{ registrationData.address.surname }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
-                    <h2 class="mb-3 font-bold">Straße</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Straße</h2>
                     <p>{{ registrationData.address.street }} {{ registrationData.address.number }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
-                    <h2 class="mb-3 font-bold">Postleitzahl</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Postleitzahl</h2>
                     <p>{{ registrationData.address.zipcode }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
-                    <h2 class="mb-3 font-bold">Ort</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Ort</h2>
                     <p>{{ registrationData.address.location }}</p>
                 </div>
             </div>
             <ng-template #localeAddress>
                 <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                     <div class="basis-full">
-                        <h2 class="mb-3 font-bold">Verein</h2>
+                        <h2 class="mb-3 font-bold whitespace-nowrap">Verein</h2>
                         <p>HelpThemAll E.V.</p>
                     </div>
                     <div class="basis-1/3 flex-1">
-                        <h2 class="mb-3 font-bold">Straße</h2>
+                        <h2 class="mb-3 font-bold whitespace-nowrap">Straße</h2>
                         <p>Musterweg 12</p>
                     </div>
                     <div class="basis-1/3 flex-1">
-                        <h2 class="mb-3 font-bold">Postleitzahl</h2>
+                        <h2 class="mb-3 font-bold whitespace-nowrap">Postleitzahl</h2>
                         <p>12345</p>
                     </div>
                     <div class="basis-1/3 flex-1">
-                        <h2 class="mb-3 font-bold">Ort</h2>
+                        <h2 class="mb-3 font-bold whitespace-nowrap">Ort</h2>
                         <p>Musterstadt</p>
                     </div>
                 </div>
             </ng-template>
             <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="flex-1">
-                    <h2 class="mb-3 font-bold">Ausgewählte Kleidungsstücke</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Ausgewählte Kleidungsstücke</h2>
                     <ul>
                         <li *ngFor="let cloth of registrationData.clothes">{{ cloth }}</li>
                     </ul>
                 </div>
                 <div class="flex-1">
-                    <h2 class="mb-3 font-bold">Ausgewähltes Krisengebiet</h2>
+                    <h2 class="mb-3 font-bold whitespace-nowrap">Ausgewähltes Krisengebiet</h2>
                     <ul>
                         <li *ngFor="let area of registrationData.areas">{{ area }}</li>
                     </ul>

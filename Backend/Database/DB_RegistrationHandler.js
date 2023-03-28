@@ -154,7 +154,8 @@ class DBRegistrationHandler extends DB{
                     registrationId: registration_id,
                     clothes: clothes,
                     areas: areas,
-                    address: address
+                    address: address,
+                    state: result[0].state
                 };
 
                 resolve(registrationobj); // resolve with registration object
@@ -265,6 +266,7 @@ class DBRegistrationHandler extends DB{
             registration["date"] = currentDateTime.format("DD.MM.YYYY"); // Store date in registration
             registration["time"] = currentDateTime.format("HH:mm:ss"); // Store time in registration
             registration["registrationId"] = registration_id // Store registration ID in registration
+            registration["state"] = "Offen"
 
             /* try to execute the query */
             this.executeQuery(query).then(async (result) => {

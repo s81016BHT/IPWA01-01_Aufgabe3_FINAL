@@ -8,10 +8,10 @@ class DB{
         // Create Mysql connection pool on static db_con, if not already existing!
         if(DB.dbcon_pool === null){
             DB.dbcon_pool = mysql.createPool({
-                host: "10.0.0.88",
-                user: "db_spendenanmeldung",
-                password: ")kK78y9FG8gQwWYC",
-                database: "spendenanmeldung"
+                host: "HOST_IP_ADDRESS",
+                user: "DB_USERNAME",
+                password: "DB_PASSWORD",
+                database: "DB_NAME"
             });
 
             // try to connect by getting a connection
