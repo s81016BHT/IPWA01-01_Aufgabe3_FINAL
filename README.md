@@ -100,7 +100,7 @@ The server.js initializes the express app, the HTTP server to redirect to https,
 
 ## Communication Models
 
-### Communication Methods Backend-Frontend
+### Communication Methods Frontend-Backend
 
 Various endpoints based on socket.io events are used to exchange data between the backend and frontend. The following table is intended to show how the backend reacts in the respective endpoints.
 
@@ -112,6 +112,7 @@ Various endpoints based on socket.io events are used to exchange data between th
 | newRegistration   |[Registration-Object](#registration-object)     | [Registration respone Object](#registration-respone-object)                   |registration|
 | getRegistration   |[Search request Object](#search-request-object) | [Registration respone Object](#registration-respone-object)                   |registration|
 
+### Response Objects
 
 ##### List of clothes respone Object-Array
 ```ts
