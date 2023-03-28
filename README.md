@@ -104,13 +104,13 @@ The server.js initializes the express app, the HTTP server to redirect to https,
 
 Various endpoints based on socket.io events are used to exchange data between the backend and frontend. The following table is intended to show how the backend reacts in the respective endpoints.
 
-| Endpoint Backend  | Requests             | Response                             |Emits to Frontend |
-| ------------------|----------------------|--------------------------------------|------------------|
-| getClothes        |                      | List of clothes respone Object-Array |getClothes        |
-| getAreas          |                      | List of areas respone Object-Array   |getAreas          | 
-| addressValidation |Address-Object        | Address validation response Object   |addressValidation |
-| newRegistration   |Registration-Object   | Registration respone Object          |registration      |
-| getRegistration   |Search request Object | Registration respone Object          |registration      |
+| Endpoint Backend  | Requests                                       | Response                             |Emits to Frontend |
+| ------------------|------------------------------------------------|--------------------------------------|------------------|
+| getClothes        |                                                | [List of clothes respone Object-Array](#list-of-clothes-respone-object-array) |getClothes|
+| getAreas          |                                                | [List of areas respone Object-Array](#list-of-areas-respone-object-array)     |getAreas  | 
+| addressValidation |[Address-Object](#address-object)               | [Address validation response Object](#list-of-areas-respone-object-array)     |addressValidation |
+| newRegistration   |[Registration-Object](#registration-object)     | [Registration respone Object](#registration-respone-object)                   |registration|
+| getRegistration   |[Search request Object](#search-request-object) | [Registration respone Object](#registration-respone-object)                   |registration|
 
 
 ##### List of clothes respone Object-Array
