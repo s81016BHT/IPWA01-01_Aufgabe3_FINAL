@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Erstellungszeit: 28. Mrz 2023 um 19:53
+-- Erstellungszeit: 28. Mrz 2023 um 20:20
 -- Server-Version: 10.5.18-MariaDB-0+deb11u1
 -- PHP-Version: 7.4.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `SpendenanmeldungDB`
+-- Datenbank: `Spendenanmeldung`
 --
 
 -- --------------------------------------------------------
@@ -80,7 +80,7 @@ CREATE TABLE `Registrations` (
   `registrationID` varchar(50) NOT NULL,
   `type` varchar(50) NOT NULL,
   `timestamp` datetime NOT NULL,
-  `state` varchar(10) NOT NULL DEFAULT 'Offen'
+  `state` varchar(20) NOT NULL DEFAULT 'Offen'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

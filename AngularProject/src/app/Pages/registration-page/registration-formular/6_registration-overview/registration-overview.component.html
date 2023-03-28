@@ -11,60 +11,60 @@
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Datum</h2>
-                    <p>{{ registrationData.date }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.date }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Uhrzeit</h2>
-                    <p>{{ registrationData.time }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.time }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h3 class="mb-3 font-bold whitespace-nowrap">Registrations ID</h3>
-                    <p>{{ registrationData.registrationId }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.registrationId }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h3 class="mb-3 font-bold whitespace-nowrap">Status</h3>
-                    <p>{{ registrationData.state }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.state }}</p>
                 </div>
             </div>
             <div *ngIf="registrationData.address !== null; else localeAddress" class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Name</h2>
-                    <p>{{ registrationData.address.name }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.address.name }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Vorname</h2>
-                    <p>{{ registrationData.address.surname }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.address.surname }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Straße</h2>
-                    <p>{{ registrationData.address.street }} {{ registrationData.address.number }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.address.street }} {{ registrationData.address.number }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Postleitzahl</h2>
-                    <p>{{ registrationData.address.zipcode }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.address.zipcode }}</p>
                 </div>
                 <div class="basis-1/3 flex-1">
                     <h2 class="mb-3 font-bold whitespace-nowrap">Ort</h2>
-                    <p>{{ registrationData.address.location }}</p>
+                    <p class="whitespace-nowrap">{{ registrationData.address.location }}</p>
                 </div>
             </div>
             <ng-template #localeAddress>
                 <div class="flex flex-wrap gap-5 bg-white p-5 rounded-lg">
                     <div class="basis-full">
                         <h2 class="mb-3 font-bold whitespace-nowrap">Verein</h2>
-                        <p>HelpThemAll E.V.</p>
+                        <p class="whitespace-nowrap">HelpThemAll E.V.</p>
                     </div>
                     <div class="basis-1/3 flex-1">
                         <h2 class="mb-3 font-bold whitespace-nowrap">Straße</h2>
-                        <p>Musterweg 12</p>
+                        <p class="whitespace-nowrap">Musterweg 12</p>
                     </div>
                     <div class="basis-1/3 flex-1">
                         <h2 class="mb-3 font-bold whitespace-nowrap">Postleitzahl</h2>
-                        <p>12345</p>
+                        <p class="whitespace-nowrap">12345</p>
                     </div>
                     <div class="basis-1/3 flex-1">
                         <h2 class="mb-3 font-bold whitespace-nowrap">Ort</h2>
-                        <p>Musterstadt</p>
+                        <p class="whitespace-nowrap">Musterstadt</p>
                     </div>
                 </div>
             </ng-template>
