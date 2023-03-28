@@ -160,7 +160,7 @@ Various endpoints based on socket.io events are used to exchange data between th
   areas: String[],
   date ?: String,
   time ?: String,
-  registrationId ?: String
+  registrationId ?: String,
   state ?: String
 }
 ```
