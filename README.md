@@ -161,6 +161,7 @@ Various endpoints based on socket.io events are used to exchange data between th
   date ?: String,
   time ?: String,
   registrationId ?: String
+  state ?: String
 }
 ```
 
